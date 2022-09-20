@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maf.h                                              :+:      :+:    :+:   */
+/*   mathutils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/20 15:02:48 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:21:18 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ typedef struct s_vec3f
 	double	y;
 	double	z;
 }				t_vec3f;
+
+
+t_vec3f	vec_dot_vec(t_vec3f a, t_vec3f b);
+t_vec3f	vec_scale(t_vec3f a, double b);
+t_vec3f	vec_minus(t_vec3f a, double b);
 
 #endif

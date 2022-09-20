@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/20 15:39:41 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:01:35 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 
 // LIBRARIES
 # include "mlx.h"

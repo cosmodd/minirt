@@ -4,6 +4,7 @@
 
 SRCS	=	srcs/main.c \
 			srcs/xutils/image.c \
+			srcs/mathutils.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
