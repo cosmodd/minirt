@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   xutils.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/20 10:25:21 by mrattez          ###   ########.fr       */
+/*   Created: 2022/09/19 14:07:46 by mrattez           #+#    #+#             */
+/*   Updated: 2022/09/19 14:12:44 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef XUTILS_H
+# define XUTILS_H
 
-// STANDARD
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 
-// LIBRARIES
 # include "mlx.h"
-# include "libft.h"
 
-// OTHERS
-# include "xutils.h"
-# include "keys.h"
-
-// CONSTANTS
-# define WIN_WIDTH	960
-# define WIN_HEIGHT	540
-
-typedef struct s_engine
+typedef struct s_image
 {
 	void	*mlx;
-	void	*win;
-	t_image	frame;
-}	t_engine;
+	void	*ptr;
+	void	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_image;
+
+t_image	new_image(void *mlx, int width, int height);
+void	destroy_image(t_image image);
+
+void	put_pixel(t_image image, int x, int y, int color);
+int		get_pixel(t_image image, int x, int y);
 
 #endif
