@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xutils.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:07:46 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/19 14:12:44 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/20 14:14:37 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_image	new_image(void *mlx, int width, int height);
 void	destroy_image(t_image image);
 
 void	put_pixel(t_image image, int x, int y, int color);
+void	put_pixel_canvas(t_image image, int x, int y, int color);
 int		get_pixel(t_image image, int x, int y);
 
 #endif

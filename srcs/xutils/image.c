@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:09:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/19 14:40:08 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/20 14:17:08 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "xutils.h"
+#include "minirt.h"
 
 t_image	new_image(void *mlx, int width, int height)
 {
@@ -44,6 +45,24 @@ void	put_pixel(t_image image, int x, int y, int color)
 	destination = image.addr;
 	destination += x * image.bits_per_pixel / 8 + y * image.line_length;
 	*(int *)destination = color;
+}
+
+/**
+ * @brief Put a pixel on a coord system where (0,0) 
+ * is a the center of the frame.
+ * @param image 
+ * @param x 
+ * @param y 
+ * @param color 
+ */
+void	put_pixel_canvas(t_image image, int x, int y, int color)
+{
+	int	cx;
+	int	cy;
+
+	cx = WIN_WIDTH * 0.5f + x;
+	cy = WIN_HEIGHT * 0.5f - y;
+	put_pixel(image, cx, cy, color);
 }
 
 int	get_pixel(t_image image, int x, int y)
