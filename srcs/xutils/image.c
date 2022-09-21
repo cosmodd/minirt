@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:09:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/20 14:17:08 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 09:45:11 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	put_pixel(t_image image, int x, int y, int color)
 {
 	char	*destination;
 
-	if (x < 0 || x > image.width || y < 0 || y > image.height)
+	if (x < 0 || x >= image.width || y < 0 || y >= image.height)
 		return ;
 	destination = image.addr;
 	destination += x * image.bits_per_pixel / 8 + y * image.line_length;

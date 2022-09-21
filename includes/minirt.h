@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/20 16:01:35 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 09:24:29 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 # include "xutils.h"
 # include "keys.h"
 # include "mathutils.h"
+# include "test.h"
 
 // CONSTANTS
-# define WIN_WIDTH	960
-# define WIN_HEIGHT	540
+# define WIN_WIDTH	800
+# define WIN_HEIGHT	800	
 # define VIEWPORT_WIDTH	1
 # define VIEWPORT_HEIGHT	1
 # define CAMERA_DISTANCE	1

@@ -6,26 +6,32 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:10:55 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/20 16:25:26 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 08:42:09 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mathutils.h"
 
-// TODO
-// - Explain methods (also change methods name - more explicit)
-
-t_vec3f	vec_dot_vec(t_vec3f a, t_vec3f b)
+/**
+ * @brief Dot product of two vec3f.
+ * 
+ * @param a First vec3f.
+ * @param b Second vec3f.
+ * @return double 
+ */
+double	v3f_dot_v3f(t_vec3f a, t_vec3f b)
 {
-	t_vec3f	ret;
-
-	ret.x = a.x * b.x;
-	ret.y = a.y * b.y;
-	ret.z = a.z * b.z;
-	return (ret);
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec3f	vec_scale(t_vec3f a, double b)
+/**
+ * @brief Dot product of a vec3f by a real number.
+ * 
+ * @param a The vec3f.
+ * @param b The real number.
+ * @return t_vec3f 
+ */
+t_vec3f	v3f_scale(t_vec3f a, double b)
 {
 	t_vec3f	ret;
 
@@ -35,7 +41,14 @@ t_vec3f	vec_scale(t_vec3f a, double b)
 	return (ret);
 }
 
-t_vec3f	vec_minus(t_vec3f a, double b)
+/**
+ * @brief Substraction of a vec3f by a real number.
+ * 
+ * @param a The vec3f.
+ * @param b The real number.
+ * @return t_vec3f 
+ */
+t_vec3f	v3f_minus(t_vec3f a, double b)
 {
 	t_vec3f	ret;
 

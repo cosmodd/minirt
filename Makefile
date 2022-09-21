@@ -5,6 +5,7 @@
 SRCS	=	srcs/main.c \
 			srcs/xutils/image.c \
 			srcs/mathutils.c \
+			srcs/test.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -60,7 +61,7 @@ DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 %.o: %.c
 	@make -sC ./libs/libft
 	@make -sC ./libs/minilibx
-	@$(CC) $(OBJ_OPTS) -c $< -o $@
+	@$(CC) -g $(OBJ_OPTS) -c $< -o $@
 	@echo -n '$(REDO)$(INFO) $(notdir $@) $(NOCOL)'
 
 all: $(NAME)

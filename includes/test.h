@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mathutils.h                                        :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/21 08:41:56 by pforesti         ###   ########.fr       */
+/*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
+/*   Updated: 2022/09/21 08:44:54 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATHUTILS_H
-#define MATHUTILS_H
+#ifndef TEST_H
+#define TEST_H
 
-typedef struct s_vec2
+#include "minirt.h"
+#define INF	10000
+
+typedef struct s_sphere
 {
-	int	x;
-	int	y;
-}				t_vec2;
+	t_vec3f	center;
+	double	radius;
+	int	color;
+}				t_sphere;
 
-typedef struct s_vec2f
+typedef	struct s_scene
 {
-	double	x;
-	double	y;
-}				t_vec2f;
+	t_sphere	spheres[3];
+}				t_scene;
 
-typedef struct s_vec3f
-{
-	double	x;
-	double	y;
-	double	z;
-}				t_vec3f;
-
-
-double	v3f_dot_v3f(t_vec3f a, t_vec3f b);
-t_vec3f	v3f_scale(t_vec3f a, double b);
-t_vec3f	v3f_minus(t_vec3f a, double b);
+void	basic_raytracer(t_image	frame);
 
 #endif
