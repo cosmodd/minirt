@@ -6,12 +6,17 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:09:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/21 09:45:11 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:31:05 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "xutils.h"
 #include "minirt.h"
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 t_image	new_image(void *mlx, int width, int height)
 {
