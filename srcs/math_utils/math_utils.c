@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:10:55 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/21 10:27:20 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:06:32 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,23 @@ t_vec3f	v3f_minus(t_vec3f a, double b)
 	ret.x = a.x - b;
 	ret.y = a.y - b;
 	ret.z = a.z - b;
+	return (ret);
+}
+
+/**
+ * @brief Affectation of a vec3f.
+ * 
+ * @param x
+ * @param y 
+ * @param z 
+ * @return t_vec3f 
+ */
+t_vec3f	v3f_affect(double x, double y, double z)
+{
+	t_vec3f	ret;
+
+	ret.x = x;
+	ret.y = y;
+	ret.z = z;
 	return (ret);
 }

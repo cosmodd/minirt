@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/21 10:27:06 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:06:54 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ typedef struct s_vec3f
 double	v3f_dot_v3f(t_vec3f a, t_vec3f b);
 t_vec3f	v3f_scale(t_vec3f a, double b);
 t_vec3f	v3f_minus(t_vec3f a, double b);
+t_vec3f	v3f_affect(double x, double y, double z);
 
 #endif
