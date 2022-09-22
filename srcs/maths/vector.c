@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:10:55 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/21 11:06:32 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:46:30 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_utils.h"
+#include "maths.h"
 
 /**
  * @brief Dot product of two vec3f.
- * 
+ *
  * @param a First vec3f.
  * @param b Second vec3f.
- * @return double 
+ * @return double
  */
 double	v3f_dot_v3f(t_vec3f a, t_vec3f b)
 {
@@ -26,10 +26,10 @@ double	v3f_dot_v3f(t_vec3f a, t_vec3f b)
 
 /**
  * @brief Dot product of a vec3f by a real number.
- * 
+ *
  * @param a The vec3f.
  * @param b The real number.
- * @return t_vec3f 
+ * @return t_vec3f
  */
 t_vec3f	v3f_scale(t_vec3f a, double b)
 {
@@ -43,10 +43,10 @@ t_vec3f	v3f_scale(t_vec3f a, double b)
 
 /**
  * @brief Substraction of a vec3f by a real number.
- * 
+ *
  * @param a The vec3f.
  * @param b The real number.
- * @return t_vec3f 
+ * @return t_vec3f
  */
 t_vec3f	v3f_minus(t_vec3f a, double b)
 {
@@ -60,11 +60,11 @@ t_vec3f	v3f_minus(t_vec3f a, double b)
 
 /**
  * @brief Affectation of a vec3f.
- * 
+ *
  * @param x
- * @param y 
- * @param z 
- * @return t_vec3f 
+ * @param y
+ * @param z
+ * @return t_vec3f
  */
 t_vec3f	v3f_affect(double x, double y, double z)
 {
