@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_engine.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/22 12:32:07 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:11:42 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,27 @@ static t_vec3f	canvas_to_viewport(int x, int y)
 void	basic_raytracer(t_image	frame)
 {
 	t_scene	scene;
-	
-	scene.spheres[0].center.x = 0;
-	scene.spheres[0].center.y = -1;
-	scene.spheres[0].center.z = 3;
+	scene.spheres[0].center = v3f_affect(0, -1, 1);
 	scene.spheres[0].radius = 1;
-	scene.spheres[0].color = 0xFF0000;
-	scene.spheres[1].center.x = -2;
-	scene.spheres[1].center.y = 0;
-	scene.spheres[1].center.z = 4;
+	scene.spheres[0].color = v3_affect(255, 0, 0);
+
+	scene.spheres[1].center = v3f_affect(-2, 0,2);
 	scene.spheres[1].radius = 1;
-	scene.spheres[1].color = 0x00FF00;
-	scene.spheres[2].center.x = 2;
-	scene.spheres[2].center.y = 0;
-	scene.spheres[2].center.z = 4;
+	scene.spheres[1].color = v3_affect(0, 255, 0);
+
+	scene.spheres[2].center = v3f_affect(2, 0, 2);
 	scene.spheres[2].radius = 1;
-	scene.spheres[2].color = 0x0000FF;
+	scene.spheres[2].color = v3_affect(0, 0, 255);
+
+	scene.spheres[3].center = v3f_affect(0, -5001, 0);
+	scene.spheres[3].radius = 5000;
+	scene.spheres[3].color = v3_affect(255, 255, 0);
+
+
+	scene.l_a.intensity = 0.2;
+	scene.l_p[0].intensity = 0.9;
+	scene.l_p[0].pos = v3f_affect(5, 5, 0);
+
 	t_vec3f	O = {0, 0, -5};
 
 	for	(int x = -WIN_WIDTH / 2 ; x < WIN_WIDTH / 2 ; x++) {

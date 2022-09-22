@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/22 12:46:15 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:07:28 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # include "objects.h"
 
 // CONSTANTS
-# define WIN_WIDTH	300
-# define WIN_HEIGHT 300
+# define WIN_WIDTH	1000
+# define WIN_HEIGHT 1000	
 # define VIEWPORT_WIDTH	1
 # define VIEWPORT_HEIGHT	1
 # define CAMERA_DISTANCE	1.5f
