@@ -3,10 +3,10 @@
 ################################################################################
 
 SRCS	=	srcs/main.c \
+			srcs/maths/vector.c \
+			srcs/raytracing/rt_engine.c \
+			srcs/raytracing/rt_rays.c \
 			srcs/xutils/image.c \
-			srcs/math_utils/math_utils.c \
-			srcs/rt/rt_engine.c \
-			srcs/rt/rt_rays.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
