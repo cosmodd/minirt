@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/22 14:08:44 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:56:11 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,37 @@
 
 # include "minirt.h"
 
+typedef struct s_camera
+{
+	void	*test;
+}	t_camera;
+
 /* Lights	*/
 /*	- intensity cannot be greater than 1.	*/
 typedef struct s_light_ambient
 {
 	double	intensity;
-}				t_light_ambient;
+}	t_light_ambient;
 
 typedef struct s_light_point
 {
 	double	intensity;
-	t_vec3f	pos;
-}				t_light_point;
+	t_vec3	pos;
+}	t_light_point;
 
 /* Objects	*/
 typedef struct s_sphere
 {
-	t_vec3f	center;
+	t_vec3	center;
 	double	radius;
 	t_vec3	color;
-}				t_sphere;
+}	t_sphere;
 
 typedef struct s_scene
 {
-	t_sphere	spheres[4];
+	t_sphere		spheres[4];
 	t_light_ambient	l_a;
 	t_light_point	l_p[3];
-}				t_scene;
+}	t_scene;
 
 #endif

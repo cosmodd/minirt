@@ -3,53 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   maths.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/22 14:08:25 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:59:03 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATHS_H
 # define MATHS_H
 
+#include <math.h>
+
 typedef struct s_vec2
-{
-	int	x;
-	int	y;
-}				t_vec2;
-
-typedef struct s_vec3
-{
-	int	x;
-	int	y;
-	int	z;
-}				t_vec3;
-
-typedef struct s_vec2f
 {
 	double	x;
 	double	y;
-}				t_vec2f;
+}	t_vec2;
 
-typedef struct s_vec3f
+typedef struct s_vec3
 {
 	double	x;
 	double	y;
 	double	z;
-}				t_vec3f;
+}	t_vec3;
 
-
-
-
-t_vec3f	v3f_normalize(t_vec3f a);
-t_vec3f	v3f_plus_v3f(t_vec3f a, t_vec3f b);
-double	v3f_module(t_vec3f a);
-t_vec3f	v3f_minus_v3f(t_vec3f a, t_vec3f b);
-double	v3f_dot_v3f(t_vec3f a, t_vec3f b);
-t_vec3f	v3f_scale(t_vec3f a, double b);
-t_vec3f	v3f_minus(t_vec3f a, double b);
-t_vec3f	v3f_affect(double x, double y, double z);
-t_vec3	v3_scale(t_vec3 a, double b);
+t_vec2	vec2_add(t_vec2 a, t_vec2 b);
+t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+double	vec2_cross(t_vec2 a, t_vec2 b);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+double	vec2_dot(t_vec2 a, t_vec2 b);
+double	vec3_dot(t_vec3 a, t_vec3 b);
+double	vec2_magnitude(t_vec2 a);
+double	vec3_magnitude(t_vec3 a);
+t_vec2	vec2_normalize(t_vec2 vec);
+t_vec3	vec3_normalize(t_vec3 vec);
+t_vec2	vec2_scalar(t_vec2 vec, double scalar);
+t_vec3	vec3_scalar(t_vec3 vec, double scalar);
+t_vec2	vec2_sub(t_vec2 a, t_vec2 b);
+t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 
 #endif

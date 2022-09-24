@@ -3,7 +3,13 @@
 ################################################################################
 
 SRCS	=	srcs/main.c \
-			srcs/maths/vector.c \
+			srcs/maths/vector_add.c \
+			srcs/maths/vector_cross.c \
+			srcs/maths/vector_dot.c \
+			srcs/maths/vector_magnitude.c \
+			srcs/maths/vector_normalize.c \
+			srcs/maths/vector_scalar.c \
+			srcs/maths/vector_sub.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
 			srcs/xutils/image.c \
@@ -72,8 +78,6 @@ $(NAME): $(OBJS)
 	@echo '$(REDO)$(VALID) $@ $(NOCOL)'
 
 clean:
-	@make -sC ./libs/libft clean
-	@make -sC ./libs/minilibx clean
 	@rm -f $(OBJS)
 	@echo '$(DEL) Removed $(words $(OBJS)) object files $(NOCOL)'
 
@@ -82,6 +86,10 @@ fclean: clean
 	@echo '$(DEL) $(NAME) binary $(NOCOL)'
 
 re: fclean all
+
+libs-re:
+	@make -sC ./libs/libft re
+	@make -sC ./libs/minilibx re
 
 run: $(NAME)
 	@./$(NAME)
