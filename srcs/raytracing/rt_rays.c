@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rt_rays.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/22 16:47:07 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/25 02:51:55 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief Find if a ray intercept a sphere.\n
+ * @brief Find if a ray intercept a sphere.
  * Quadratic equation obtained from : the equation for
  * all points on a sphere && the equation from all points on
  * a ray.
@@ -36,15 +36,15 @@ t_vec2	rays_intercept_sphere(t_vec3 O, t_vec3 D, t_sphere sphere)
 	r = sphere.radius;
 	CO = vec3_sub(O, sphere.center);
 	a = vec3_dot(D, D);
-	b = 2 * vec3_dot(CO, D);
+	b = 2.0 * vec3_dot(CO, D);
 	c = vec3_dot(CO, CO) - r * r;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant <= 0)
+	discriminant = b * b - 4.0 * a * c;
+	if (discriminant < 0)
 		t = (t_vec2){INF, INF};
 	else
 	{
-		t.x = (-b + sqrt(discriminant)) / (2 * a);
-		t.y = (-b - sqrt(discriminant)) / (2 * a);
+		t.x = (-b + sqrt(discriminant)) / (2.0 * a);
+		t.y = (-b - sqrt(discriminant)) / (2.0 * a);
 	}
 	return (t);
 }
@@ -58,7 +58,7 @@ t_vec2	rays_intercept_sphere(t_vec3 O, t_vec3 D, t_sphere sphere)
  * @param scene Current scene.
  * @return double - intensity I.
  */
-double	compute_lightning(t_vec3	P, t_vec3 N, t_scene scene)
+double	compute_lighting(t_vec3	P, t_vec3 N, t_scene scene)
 {
 	double	i;
 	t_vec3	L;
@@ -66,13 +66,15 @@ double	compute_lightning(t_vec3	P, t_vec3 N, t_scene scene)
 
 	i = 0;
 	i += scene.l_a.intensity;
-	for (int k = 0 ; k < 1; k++)
+	for (int k = 0 ; k < 2; k++)
 	{
 		L = vec3_sub(scene.l_p[k].pos, P);
 		N_dot_L = vec3_dot(N, L);
 		if (N_dot_L > 0)
-			i += scene.l_p[k].intensity * N_dot_L / (vec3_magnitude(N) * vec3_magnitude(L));
+			i += scene.l_p[k].intensity * (N_dot_L / (vec3_magnitude(N) * vec3_magnitude(L)));
 	}
+	if (i > 1)
+		i = 1;
 	return (i);
 }
 
@@ -91,7 +93,7 @@ int	rays_trace(t_vec3 O, t_vec3 D, int t_min, int t_max, t_scene scene)
 {
 	int			i;
 	t_vec2		t;
-	int			closest_t;
+	double			closest_t;
 	t_sphere*	closest_sphere;
 	t_vec3		P;
 	t_vec3		N;
@@ -100,7 +102,7 @@ int	rays_trace(t_vec3 O, t_vec3 D, int t_min, int t_max, t_scene scene)
 	closest_t = INF;
 	closest_sphere = NULL;
 	i = -1;
-	while (++i < 3)
+	while (++i < 4)
 	{
 		t = rays_intercept_sphere(O, D, scene.spheres[i]);
 		if (t.x >= t_min && t.x <= t_max && t.x < closest_t)
@@ -116,11 +118,11 @@ int	rays_trace(t_vec3 O, t_vec3 D, int t_min, int t_max, t_scene scene)
 	}
 	if (closest_sphere == NULL)
 		return (create_trgb(0, 0, 0, 0));
-	// Lightning compute
+	// Lighting compute
 	P = vec3_add(O, vec3_scalar(D, closest_t)); // Compute intersection point
 	N = vec3_sub(P, closest_sphere->center); // Compute intersection normal
 	N = vec3_normalize(N);
-	v_color = vec3_scalar(closest_sphere->color, compute_lightning(P, N, scene));
+	v_color = vec3_scalar(closest_sphere->color, compute_lighting(P, N, scene));
 	return (create_trgb(0, v_color.x, v_color.y, v_color.z));
 }
 

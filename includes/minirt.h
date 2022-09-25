@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/22 15:58:12 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/25 02:48:30 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define VIEWPORT_WIDTH		1
 # define VIEWPORT_HEIGHT	1
 # define CAMERA_DISTANCE	1.5f
-# define INF				10000
+# define INF				100000
 
 typedef struct s_engine
 {
