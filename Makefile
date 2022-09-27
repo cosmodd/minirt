@@ -95,6 +95,14 @@ fclean: clean
 
 re: fclean all
 
+libs-clean:
+	@make -sC ./libs/libft clean
+	@make -sC ./libs/minilibx clean
+
+libs-fclean:
+	@make -sC ./libs/libft fclean
+	@make -sC ./libs/minilibx clean
+
 libs-re:
 	@make -sC ./libs/libft re
 	@make -sC ./libs/minilibx re

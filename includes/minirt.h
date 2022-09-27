@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/27 14:02:34 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/27 15:57:12 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
+# include <fcntl.h>
 
 // LIBRARIES
 # include "mlx.h"

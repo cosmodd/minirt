@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/27 11:23:38 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/27 14:45:09 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_light
 /* Objects	*/
 typedef struct s_sphere
 {
-	t_vec3	center;
+	t_vec3	position;
 	double	radius;
 	t_vec3	color;
 }	t_sphere;
@@ -57,6 +57,15 @@ typedef struct s_plane
 	t_vec3	direction;
 	t_vec3	color;
 }	t_plane;
+
+typedef struct s_cylinder
+{
+	t_vec3	position;
+	t_vec3	direction;
+	double	diameter;
+	double	height;
+	t_vec3	color;
+}	t_cylinder;
 
 /* Other */
 typedef struct s_collideable

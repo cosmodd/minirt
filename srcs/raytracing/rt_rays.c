@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/27 13:43:53 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/27 16:38:39 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_vec3	get_coll_color(t_scene scene, t_collideable coll, double min, t_vec3 rd)
 	}
 	else if (coll.type == SPHERE)
 	{
-		N = vec3_sub(P, ((t_sphere*)coll.object)->center); // Compute intersection normal
+		N = vec3_sub(P, ((t_sphere*)coll.object)->position); // Compute intersection normal
 		color = ((t_sphere*)coll.object)->color;
 	}
 	N = vec3_normalize(N);
