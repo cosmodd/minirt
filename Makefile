@@ -3,6 +3,7 @@
 ################################################################################
 
 SRCS	=	srcs/main.c \
+			srcs/maths/min_max.c \
 			srcs/maths/vector_add.c \
 			srcs/maths/vector_cross.c \
 			srcs/maths/vector_dot.c \
@@ -10,6 +11,10 @@ SRCS	=	srcs/main.c \
 			srcs/maths/vector_normalize.c \
 			srcs/maths/vector_scalar.c \
 			srcs/maths/vector_sub.c \
+			srcs/objects/collideable.c \
+			srcs/objects/light_point.c \
+			srcs/objects/plane.c \
+			srcs/objects/sphere.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
 			srcs/xutils/image.c \
@@ -21,7 +26,7 @@ OBJS	=	$(SRCS:.c=.o)
 ################################################################################
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra
+CFLAGS		=	-Wall -Wextra -Werror
 
 NAME		=	minirt
 
@@ -76,6 +81,9 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(CC) $(BIN_OPTS) $^ -o $(NAME)
 	@echo '$(REDO)$(VALID) $@ $(NOCOL)'
+
+debug: fclean
+	@make -s CFLAGS="$(CFLAGS) -g" BIN_OPTS="$(BIN_OPTS) -fsanitize=address"
 
 clean:
 	@rm -f $(OBJS)
