@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:52:38 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/27 16:20:52 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/28 14:31:25 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ double	intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane plane)
 	double	t;
 
 	denom = vec3_dot(raydir, plane.direction);
-	if (denom > 0)
+	if (math_abs(denom) > 0)
 	{
 		co = vec3_sub(plane.position, camera);
 		t = vec3_dot(co, plane.direction) / denom;
-		if (t < 0)
-			return (INF);
-		return (t);
+		if (t > 0)
+			return (t);
 	}
 	return (INF);
 }

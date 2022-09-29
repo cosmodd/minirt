@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/27 10:55:19 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/28 11:05:52 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_vec3
 	double	z;
 }	t_vec3;
 
+double	math_abs(double value);
 double	math_minf(double a, double b);
 double	math_maxf(double a, double b);
 t_vec2	vec2_add(t_vec2 a, t_vec2 b);

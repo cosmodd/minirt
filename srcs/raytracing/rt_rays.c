@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/27 16:38:39 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/28 12:46:35 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,22 @@
  * @param scene Current scene.
  * @return double - intensity I.
  */
-double	compute_lighting(t_vec3	P, t_vec3 N, t_scene scene)
+
+/**
+ * @brief Compute the intensity I from the different light sources in the scene
+ *        for a specific point.
+ *
+ * @param P Point for which to compute light intensity.
+ * @param N Normal of the point in relation to its surface.
+ * @param scene Current scene.
+ * @return double - Intensity I from the light sources.
+ */
+double	compute_lighting(t_vec3	point, t_vec3 normal, t_scene scene)
 {
 	t_list	*lightNode;
 	t_light	light;
 	double	i;
-	t_vec3	L;
+	t_vec3	vecto_l;
 	double	ndl;
 
 	i = 0;
@@ -35,10 +45,10 @@ double	compute_lighting(t_vec3	P, t_vec3 N, t_scene scene)
 	while (lightNode != NULL)
 	{
 		light = *(t_light*)(lightNode->content);
-		L = vec3_sub(light.position, P);
-		ndl = vec3_dot(N, L);
+		vecto_l = vec3_sub(light.position, point);
+		ndl = vec3_dot(normal, vecto_l);
 		if (ndl > 0)
-			i += light.intensity * (ndl / (vec3_magnitude(N) * vec3_magnitude(L)));
+			i += light.intensity * (ndl / (vec3_magnitude(normal) * vec3_magnitude(vecto_l)));
 		lightNode = lightNode->next;
 	}
 	i = math_minf(1, i);
@@ -69,7 +79,9 @@ t_vec3	get_coll_color(t_scene scene, t_collideable coll, double min, t_vec3 rd)
 	N = (t_vec3){0, 0, 0};
 	if (coll.type == PLANE)
 	{
-		N = vec3_scalar(((t_plane *)coll.object)->direction, -1); // Compute intersection normal
+		N = ((t_plane *)coll.object)->direction; // Compute intersection normal
+		// N = vec3_scalar(((t_plane *)coll.object)->direction, -1); // Compute intersection normal
+		// printf("N=(%f,%f,%f)\n", N.x, N.y, N.z);
 		color = ((t_plane*)coll.object)->color;
 	}
 	else if (coll.type == SPHERE)

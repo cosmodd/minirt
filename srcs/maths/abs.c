@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   abs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/28 11:22:19 by mrattez          ###   ########.fr       */
+/*   Created: 2022/09/28 11:04:17 by mrattez           #+#    #+#             */
+/*   Updated: 2022/09/28 11:05:20 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "maths.h"
 
-bool	parse_scene(t_engine *engine, char *path)
+double	math_abs(double value)
 {
-	char	*line;
-	int		fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	line = get_next_line(fd);
-	(void) engine;
-	return (true);
+	return (value * ((value >= 0) * 2 - 1));
 }
