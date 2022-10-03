@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/28 11:38:48 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/03 08:50:12 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 # include "objects.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(1920)
-# define WIN_HEIGHT		(1080)
-# define FOV			100
+# define WIN_WIDTH		(900)
+# define WIN_HEIGHT		(600)
+# define FOV			120
 # define INF			100000
 
 typedef struct s_engine
@@ -43,6 +43,8 @@ typedef struct s_engine
 	void	*win;
 	t_image	frame;
 	t_scene	scene;
+	double	hfov;
+	double	vfov;
 	double	vw;
 	double	vh;
 	double	vp_dist;

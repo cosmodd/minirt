@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/28 12:46:35 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/29 14:54:45 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	raytrace(t_scene scene, t_vec3 raydir)
 	{
 		coll = *(t_collideable *)(coll_node->content);
 		dist = call_collide(scene, raydir, coll.type, coll.object);
-		if (dist < min)
+		if (dist < min && dist >= 0)
 		{
 			min = dist;
 			nearest = coll_node->content;

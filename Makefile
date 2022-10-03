@@ -5,11 +5,14 @@
 SRCS	=	srcs/main.c \
 			srcs/maths/abs.c \
 			srcs/maths/min_max.c \
+			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/vector/vector_add.c \
 			srcs/maths/vector/vector_cross.c \
 			srcs/maths/vector/vector_dot.c \
 			srcs/maths/vector/vector_magnitude.c \
+			srcs/maths/vector/vector_matrix.c \
 			srcs/maths/vector/vector_normalize.c \
+			srcs/maths/vector/vector_rotate.c \
 			srcs/maths/vector/vector_scalar.c \
 			srcs/maths/vector/vector_sub.c \
 			srcs/objects/collideable.c \

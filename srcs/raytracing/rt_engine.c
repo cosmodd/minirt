@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/28 15:01:41 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/29 15:13:00 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ static t_vec3	canvas_to_viewport(t_engine *engine, int x, int y)
 
 void	basic_raytracer(t_engine *engine)
 {
+	printf("Rendering...");
 	for (int x = -WIN_WIDTH / 2; x < WIN_WIDTH / 2; x++)
 	{
 		for (int y = -WIN_HEIGHT / 2; y < WIN_HEIGHT / 2; y++)
 		{
 			t_vec3 raydir = canvas_to_viewport(engine, x, y);
+			raydir = vec3_mat4(raydir, engine->scene.camera.view);
 			int color = raytrace(engine->scene, raydir);
 			put_pixel_canvas(engine->frame, x, y, color);
 		}
 	}
+	printf("\r\e[2K✅ Done!\n");
 }
 

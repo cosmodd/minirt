@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/28 11:22:19 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/09/29 09:21:57 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ bool	parse_scene(t_engine *engine, char *path)
 		return (false);
 	line = get_next_line(fd);
 	(void) engine;
+	(void) line;
 	return (true);
 }
