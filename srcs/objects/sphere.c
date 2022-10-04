@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/27 16:12:24 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 16:17:30 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
 	return (sphere);
 }
 
+t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color)
+{
+	t_collideable	*collideable;
+	t_sphere		*sphere;
+
+	collideable = malloc(sizeof(t_collideable));
+	if (collideable == NULL)
+		return (NULL);
+	collideable->type = SPHERE;
+	collideable->color = color;
+	sphere = new_sphere(position, radius, color);
+	if (sphere == NULL)
+	{
+		free(collideable);
+		return (NULL);
+	}
+	collideable->sphere = sphere;
+	collideable->intersect = intersect_sphere;
+	return (collideable);
+}
+
 /**
  * @brief Finds the first point of intersection to a sphere.
  *
@@ -41,15 +62,15 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
  * @param sphere Sphere object.
  * @return double - Distance to the intersection with the sphere.
  */
-double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere sphere)
+double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
 {
 	double	r;
 	t_vec3	vec_co;
 	t_vec3	abc;
 	double	discriminant;
 
-	r = sphere.radius;
-	vec_co = vec3_sub(camera, sphere.position);
+	r = sphere->radius;
+	vec_co = vec3_sub(camera, sphere->position);
 	abc.x = vec3_dot(raydir, raydir);
 	abc.y = 2.0 * vec3_dot(vec_co, raydir);
 	abc.z = vec3_dot(vec_co, vec_co) - r * r;

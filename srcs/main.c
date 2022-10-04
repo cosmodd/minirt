@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/04 15:28:22 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 16:45:59 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	key_hook(int keycode, t_engine *engine)
 	{
 		t_vec3	dir = vec3_scalar(engine->scene.camera.direction, (keycode == K_W) * 2 - 1);
 		// printf("dir: %f %f %f\n", dir.x, dir.y, dir.z);
-		dir.x *= -1;
+		// dir.x *= -1;
 		// dir.z *= -1;
 		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
 		engine->scene.camera.view = mat4_lookat(
@@ -73,7 +73,7 @@ int	key_hook(int keycode, t_engine *engine)
 		t_vec3	camdir = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, -M_PI_2);
 		t_vec3	dir = vec3_scalar(camdir, (keycode == K_D) * 2 - 1);
 		// dir.x *= -1;
-		dir.z *= -1;
+		// dir.z *= -1;
 		// printf("ir: %f %f %f\n", dir.x, dir.y, dir.z);
 		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
 		engine->scene.camera.view = mat4_lookat(
@@ -87,7 +87,7 @@ int	key_hook(int keycode, t_engine *engine)
 	{
 		double	abs_angle = M_PI / 6;
 		double	rot_angle = (keycode == ARROW_RIGHT) * 2 * abs_angle - abs_angle;
-		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, rot_angle);
+		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, -rot_angle);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
@@ -100,9 +100,8 @@ int	key_hook(int keycode, t_engine *engine)
 
 int	main(void)
 {
-	t_engine	engine;
-	t_sphere	*sphere;
-	t_plane		*plane;
+	t_engine		engine;
+	t_collideable	*coll;
 
 	ft_bzero(&engine, sizeof(engine));
 	engine.mlx = mlx_init();
@@ -116,47 +115,67 @@ int	main(void)
 	engine.hfov = FOV * M_PI / 180;
 	engine.vfov = 2 * atan(tan(engine.hfov / 2) * (engine.vh / engine.vw));
 
-	engine.scene.camera.position = (t_vec3){0, 0, 0};
-	engine.scene.camera.direction = vec3_normalize((t_vec3){1, 1, -3});
+	engine.scene.camera.position = (t_vec3){14, -14, 14};
+	engine.scene.camera.direction = vec3_normalize((t_vec3){-2, 1, -2});
 	engine.scene.camera.view = mat4_lookat(
 		engine.scene.camera.position,
-		// vec3_add(engine.scene.camera.position, engine.scene.camera.direction)
-		(t_vec3){2.5, 0, -10}
+		vec3_add(engine.scene.camera.position, engine.scene.camera.direction)
+		// (t_vec3){2.5, 0, -10}
 	);
 
 	engine.scene.ambient_light.intensity = 0.2;
 
+	t_vec3	lightPosition = (t_vec3){0, -10, 0};
+
 	// Light
-	t_light	*lightPoint = new_light_point((t_vec3){2, 2, -5}, .75, (t_vec3){255, 255, 255});
+	t_light	*lightPoint = new_light_point(lightPosition, .8, (t_vec3){0xFF, 0xFF, 0xFF});
 	ft_lstadd_back(&engine.scene.lights, ft_lstnew(lightPoint));
 
 	// Light sphere
-	sphere = new_sphere((t_vec3){2, 2, -5}, .1, (t_vec3){0xFF, 0xFF, 0xFF});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(SPHERE, sphere)));
+	coll = new_sphere_col(lightPosition, .1, (t_vec3){0x0, 0x0, 0x0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
 	// Red sphere
-	sphere = new_sphere((t_vec3){2.5, 0, -10}, 2, (t_vec3){254, 74, 73});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(SPHERE, sphere)));
+	coll = new_sphere_col((t_vec3){2.5, 0, -10}, 2, (t_vec3){254, 74, 73});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
 	// Yellow sphere
-	sphere = new_sphere((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(SPHERE, sphere)));
+	coll = new_sphere_col((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
 	// Gray plane (floor)
-	plane = new_plane((t_vec3){0, -2, 0}, (t_vec3){0, 1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(PLANE, plane)));
+	coll = new_plane_col((t_vec3){0, -15, 0}, (t_vec3){0, 1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// plane = new_plane((t_vec3){0, 2, 0}, (t_vec3){0, -1, 0}, (t_vec3){0xFF, 0, 0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(PLANE, plane)));
+	// Gray plane (ceiling)
+	coll = new_plane_col((t_vec3){0, 15, 0}, (t_vec3){0, -1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// plane = new_plane((t_vec3){0, 0, 15}, (t_vec3){0, 0, -1}, (t_vec3){0, 0, 255});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(PLANE, plane)));
+	// Gray plane (front wall)
+	coll = new_plane_col((t_vec3){0, 0, -15}, (t_vec3){0, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// plane = new_plane((t_vec3){3, 0, 0}, (t_vec3){-1, 0, 0}, (t_vec3){0, 0, 255});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(PLANE, plane)));
+	// Gray plane (back wall)
+	coll = new_plane_col((t_vec3){0, 0, 15}, (t_vec3){0, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// plane = new_plane((t_vec3){-3, 0, 0}, (t_vec3){1, 0, 0}, (t_vec3){0, 0, 255});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(to_collideable(PLANE, plane)));
+	// Gray plane (right wall)
+	coll = new_plane_col((t_vec3){15, 0, 0}, (t_vec3){-1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+
+	// Gray plane (left wall)
+	coll = new_plane_col((t_vec3){-15, 0, 0}, (t_vec3){1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+
+	// Gray plane (diag wall)
+	coll = new_plane_col((t_vec3){-10, 0, -10}, (t_vec3){1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// Gray plane (diag wall)
+	coll = new_plane_col((t_vec3){10, 0, -10}, (t_vec3){-1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// Gray plane (diag wall)
+	coll = new_plane_col((t_vec3){-10, 0, 10}, (t_vec3){1, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
 	basic_raytracer(&engine);
 

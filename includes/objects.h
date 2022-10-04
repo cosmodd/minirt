@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/29 14:35:33 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 16:25:22 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,13 @@ typedef struct s_cylinder
 typedef struct s_collideable
 {
 	t_object	type;
-	void		*object;
+	double		(*intersect)();
+	union {
+		void		*ptr;
+		t_sphere	*sphere;
+		t_plane		*plane;
+		t_cylinder	*cylinder;
+	};
 	t_vec3		color;
 }	t_collideable;
 
@@ -84,11 +90,12 @@ typedef struct s_scene
 	t_list		*lights;
 }	t_scene;
 
-t_collideable	*to_collideable(t_object type, void *object);
 t_light			*new_light_point(t_vec3 pos, double intensity, t_vec3 color);
 t_plane			*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color);
-double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane plane);
+t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color);
+double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane);
 t_sphere		*new_sphere(t_vec3 position, double radius, t_vec3 color);
-double			intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere sphere);
+t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color);
+double			intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere);
 
 #endif

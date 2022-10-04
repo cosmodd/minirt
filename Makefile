@@ -4,8 +4,8 @@
 
 SRCS	=	srcs/main.c \
 			srcs/maths/abs.c \
-			srcs/maths/min_max.c \
 			srcs/maths/matrix/mat_lookat.c \
+			srcs/maths/min_max.c \
 			srcs/maths/vector/vector_add.c \
 			srcs/maths/vector/vector_cross.c \
 			srcs/maths/vector/vector_dot.c \
@@ -15,7 +15,6 @@ SRCS	=	srcs/main.c \
 			srcs/maths/vector/vector_rotate.c \
 			srcs/maths/vector/vector_scalar.c \
 			srcs/maths/vector/vector_sub.c \
-			srcs/objects/collideable.c \
 			srcs/objects/light_point.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \

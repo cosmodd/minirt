@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:52:38 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/28 14:31:25 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 16:18:18 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ t_plane	*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color)
 	return (plane);
 }
 
+t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color)
+{
+	t_collideable	*collideable;
+	t_plane			*plane;
+
+	collideable = malloc(sizeof(t_collideable));
+	if (collideable == NULL)
+		return (NULL);
+	collideable->type = PLANE;
+	collideable->color = color;
+	plane = new_plane(position, direction, color);
+	if (plane == NULL)
+	{
+		free(collideable);
+		return (NULL);
+	}
+	collideable->plane = plane;
+	collideable->intersect = intersect_plane;
+	return (collideable);
+}
+
 /**
  * @brief Finds the first point of intersection to a plane.
  *
@@ -41,17 +62,17 @@ t_plane	*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color)
  * @param plane Plane object.
  * @return double - Distance to the intersection.
  */
-double	intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane plane)
+double	intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane)
 {
 	t_vec3	co;
 	double	denom;
 	double	t;
 
-	denom = vec3_dot(raydir, plane.direction);
+	denom = vec3_dot(raydir, plane->direction);
 	if (math_abs(denom) > 0)
 	{
-		co = vec3_sub(plane.position, camera);
-		t = vec3_dot(co, plane.direction) / denom;
+		co = vec3_sub(plane->position, camera);
+		t = vec3_dot(co, plane->direction) / denom;
 		if (t > 0)
 			return (t);
 	}
