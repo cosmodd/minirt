@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:33:21 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/29 16:19:00 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 13:59:34 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,19 @@ t_vec2	vec2_rotate(t_vec2 vec, double angle)
 t_vec3	vec3_rotate(t_vec3 vec, t_vec3 axis, double angle)
 {
 	t_vec3	rotated;
-	t_vec2	xaxis;
-	t_vec2	yaxis;
-	t_vec2	zaxis;
+	double	cosa;
+	double	sina;
 
-	xaxis = (t_vec2){cos(-angle * axis.x), sin(-angle * axis.x)};
-	yaxis = (t_vec2){cos(-angle * axis.y), sin(-angle * axis.y)};
-	zaxis = (t_vec2){cos(-angle * axis.z), sin(-angle * axis.z)};
-	
-	rotated.x = vec.x * (yaxis.x * zaxis.x) + vec.y * (xaxis.y * yaxis.y * zaxis.x - xaxis.x * zaxis.y) + vec.z * (xaxis.x * yaxis.y * zaxis.x + xaxis.y * zaxis.y);
-	rotated.y = vec.x * (yaxis.x * zaxis.y) + vec.y * (xaxis.y * yaxis.y * zaxis.y + xaxis.x * zaxis.x) + vec.z * (xaxis.x * yaxis.y * zaxis.y - xaxis.y * zaxis.x);
-	rotated.z = vec.x * (-yaxis.y) + vec.y * (xaxis.y * yaxis.x) + vec.z * (xaxis.x * yaxis.x);
+	cosa = cos(angle);
+	sina = sin(angle);
+	rotated.x = vec.x * (cosa + axis.x * axis.x * (1 - cosa))
+		+ vec.y * (axis.x * axis.y * (1 - cosa) - axis.z * sina)
+		+ vec.z * (axis.x * axis.z * (1 - cosa) + axis.y * sina);
+	rotated.y = vec.x * (axis.y * axis.x * (1 - cosa) + axis.z * sina)
+		+ vec.y * (cosa + axis.y * axis.y * (1 - cosa))
+		+ vec.z * (axis.y * axis.z * (1 - cosa) - axis.x * sina);
+	rotated.z = vec.x * (axis.z * axis.x * (1 - cosa) - axis.y * sina)
+		+ vec.y * (axis.z * axis.y * (1 - cosa) + axis.x * sina)
+		+ vec.z * (cosa + axis.z * axis.z * (1 - cosa));
 	return (rotated);
 }
-
-/*
-⌈ cos(β) cos(θ) | sin(α) sin(β) cos(θ) - cos(α) sin(θ) | cos(α) sin(β) cos(θ) + sin(α) sin(θ) ⌉
-| cos(β) sin(θ) | sin(α) sin(β) sin(θ) + cos(α) cos(θ) | cos(α) sin(β) sin(θ) - sin(α) cos(θ) |
-⌊ -sin(β)       | sin(α) cos(β)                        | cos(α) cos(β)                        ⌋
-
-⌈ x cos(β) cos(θ) + y sin(α) sin(β) cos(θ) - y cos(α) sin(θ) + z cos(α) sin(β) cos(θ) + z sin(α) sin(θ) ⌉
-| x cos(β) sin(θ) + y sin(α) sin(β) sin(θ) + y cos(α) cos(θ) + z cos(α) sin(β) sin(θ) - z sin(α) cos(θ) |
-⌊ -x sin(β) + y sin(α) cos(β) + z cos(α) cos(β)                                                         ⌋
-
-
-
- */

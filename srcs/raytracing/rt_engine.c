@@ -6,42 +6,40 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/29 15:13:00 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/04 15:34:51 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief Determine which square on
- * the viewport corresponds to the canvas pixel.
+ * @brief Generates a direction vector from pixel coordinates.
  *
- * @param c Canvas pixel
- * @return t_vec3f
+ * @param engine Data of the entire engine.
+ * @param pixel Coordinates of the pixel to convert.
+ * @return t_vec3 - Direction vector
  */
-static t_vec3	canvas_to_viewport(t_engine *engine, int x, int y)
+static t_vec3	generate_raydir(t_engine *engine, t_vec2 pixel)
 {
 	t_vec3	v;
 
-	v.x = x * ((float)engine->vw / (float)WIN_WIDTH);
-	v.y = y * ((float)engine->vh / (float)WIN_HEIGHT);
-	v.z = engine->vp_dist;
-	return (v);
+	v.x = (pixel.x / (double)WIN_WIDTH) * engine->vw;
+	v.y = (pixel.y / (double)WIN_HEIGHT) * engine->vh;
+	v.z = -engine->vp_dist;
+	return (vec3_normalize(v));
 }
 
 void	basic_raytracer(t_engine *engine)
 {
-	printf("Rendering...");
-	for (int x = -WIN_WIDTH / 2; x < WIN_WIDTH / 2; x++)
+	for (int y = -WIN_HEIGHT / 2; y < WIN_HEIGHT; y++)
 	{
-		for (int y = -WIN_HEIGHT / 2; y < WIN_HEIGHT / 2; y++)
+		for (int x = -WIN_WIDTH / 2; x < WIN_WIDTH; x++)
 		{
-			t_vec3 raydir = canvas_to_viewport(engine, x, y);
+			t_vec3 raydir = generate_raydir(engine, (t_vec2){x, y});
 			raydir = vec3_mat4(raydir, engine->scene.camera.view);
 			int color = raytrace(engine->scene, raydir);
 			put_pixel_canvas(engine->frame, x, y, color);
 		}
 	}
-	printf("\r\e[2K✅ Done!\n");
 }
 
