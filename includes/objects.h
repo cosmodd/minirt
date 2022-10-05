@@ -6,14 +6,15 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/04 16:25:22 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/05 10:40:48 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-# include "minirt.h"
+#include "maths.h"
+#include "libft.h"
 
 typedef enum e_object
 {
@@ -91,6 +92,7 @@ typedef struct s_scene
 }	t_scene;
 
 t_light			*new_light_point(t_vec3 pos, double intensity, t_vec3 color);
+void			free_collideable(void *ptr);
 t_plane			*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color);
 t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color);
 double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane);

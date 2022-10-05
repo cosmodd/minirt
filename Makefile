@@ -16,6 +16,7 @@ SRCS	=	srcs/main.c \
 			srcs/maths/vector/vector_scalar.c \
 			srcs/maths/vector/vector_sub.c \
 			srcs/objects/light_point.c \
+			srcs/objects/object.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \
 			srcs/parsing/parsing.c \

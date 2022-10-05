@@ -6,47 +6,50 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/04 16:45:59 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/05 10:43:25 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_vec3(t_vec3 v)
-{
-	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
-}
+// void	print_vec3(t_vec3 v)
+// {
+// 	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
+// }
 
-void	print_mat4(t_mat4 mat)
-{
-	for (int i = 0; i < 4; i++)
-	{
-		if (i == 0)
-			printf("┌ ");
-		else if (i == 3)
-			printf("└ ");
-		else
-			printf("│ ");
-		for (int j = 0; j < 4; j++)
-		{
-			printf("%10.5f", mat.m[i][j]);
-			if (j < 3)
-				printf(", ");
-		}
-		if (i == 0)
-			printf(" ┐");
-		else if (i == 3)
-			printf(" ┘");
-		else
-			printf(" │");
-		printf("\n");
-	}
-}
+// void	print_mat4(t_mat4 mat)
+// {
+// 	for (int i = 0; i < 4; i++)
+// 	{
+// 		if (i == 0)
+// 			printf("┌ ");
+// 		else if (i == 3)
+// 			printf("└ ");
+// 		else
+// 			printf("│ ");
+// 		for (int j = 0; j < 4; j++)
+// 		{
+// 			printf("%10.5f", mat.m[i][j]);
+// 			if (j < 3)
+// 				printf(", ");
+// 		}
+// 		if (i == 0)
+// 			printf(" ┐");
+// 		else if (i == 3)
+// 			printf(" ┘");
+// 		else
+// 			printf(" │");
+// 		printf("\n");
+// 	}
+// }
 
 void	quit(t_engine *engine)
 {
+	ft_lstclear(&engine->scene.lights, free);
+	ft_lstclear(&engine->scene.collideables, free_collideable);
 	destroy_image(engine->frame);
 	mlx_destroy_window(engine->mlx, engine->win);
+	system("leaks minirt");
 	exit(0);
 }
 
@@ -170,9 +173,11 @@ int	main(void)
 	// Gray plane (diag wall)
 	coll = new_plane_col((t_vec3){-10, 0, -10}, (t_vec3){1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
 	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	
 	// Gray plane (diag wall)
 	coll = new_plane_col((t_vec3){10, 0, -10}, (t_vec3){-1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
 	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	
 	// Gray plane (diag wall)
 	coll = new_plane_col((t_vec3){-10, 0, 10}, (t_vec3){1, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
 	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));

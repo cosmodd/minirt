@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_add.c                                       :+:      :+:    :+:   */
+/*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 16:10:55 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/05 10:43:07 by mrattez          ###   ########.fr       */
+/*   Created: 2022/10/05 10:05:16 by mrattez           #+#    #+#             */
+/*   Updated: 2022/10/05 10:38:12 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "maths.h"
+#include "objects.h"
 
-t_vec2	vec2_add(t_vec2 a, t_vec2 b)
+void	free_collideable(void *ptr)
 {
-	t_vec2	result;
+	t_collideable	*collideable;
 
-	result.x = a.x + b.x;
-	result.y = a.y + b.y;
-	return (result);
-}
-
-t_vec3	vec3_add(t_vec3 a, t_vec3 b)
-{
-	t_vec3	result;
-
-	result.x = a.x + b.x;
-	result.y = a.y + b.y;
-	result.z = a.z + b.z;
-	return (result);
+	collideable = (t_collideable *)ptr;
+	free(collideable->ptr);
+	free(collideable);
 }
