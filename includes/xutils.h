@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xutils.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:07:46 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/21 10:31:16 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/05 11:02:02 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	destroy_image(t_image image);
 void	put_pixel(t_image image, int x, int y, int color);
 void	put_pixel_canvas(t_image image, int x, int y, int color);
 int		get_pixel(t_image image, int x, int y);
-int		create_trgb(int t, int r, int g, int b);
+int		create_rgba(int r, int g, int b, int a);
 
 #endif

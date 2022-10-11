@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/05 10:43:25 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 10:26:08 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	quit(t_engine *engine)
 	ft_lstclear(&engine->scene.collideables, free_collideable);
 	destroy_image(engine->frame);
 	mlx_destroy_window(engine->mlx, engine->win);
-	system("leaks minirt");
+	// system("leaks minirt");
 	exit(0);
 }
 
@@ -119,7 +119,9 @@ int	main(void)
 	engine.vfov = 2 * atan(tan(engine.hfov / 2) * (engine.vh / engine.vw));
 
 	engine.scene.camera.position = (t_vec3){14, -14, 14};
+	// engine.scene.camera.position = (t_vec3){0, 0, 15};
 	engine.scene.camera.direction = vec3_normalize((t_vec3){-2, 1, -2});
+	// engine.scene.camera.direction = vec3_normalize((t_vec3){0, 0, -1});
 	engine.scene.camera.view = mat4_lookat(
 		engine.scene.camera.position,
 		vec3_add(engine.scene.camera.position, engine.scene.camera.direction)
@@ -135,15 +137,18 @@ int	main(void)
 	ft_lstadd_back(&engine.scene.lights, ft_lstnew(lightPoint));
 
 	// Light sphere
-	coll = new_sphere_col(lightPosition, .1, (t_vec3){0x0, 0x0, 0x0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// coll = new_sphere_col(lightPosition, .1, (t_vec3){0x0, 0x0, 0x0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Red sphere
-	coll = new_sphere_col((t_vec3){2.5, 0, -10}, 2, (t_vec3){254, 74, 73});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Red sphere
+	// coll = new_sphere_col((t_vec3){2.5, 0, -10}, 2, (t_vec3){254, 74, 73});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Yellow sphere
-	coll = new_sphere_col((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
+	// // Yellow sphere
+	// coll = new_sphere_col((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+
+	coll = new_sphere_col((t_vec3){0, -7.5, 0}, 2, (t_vec3){254, 215, 102});
 	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
 	// Gray plane (floor)

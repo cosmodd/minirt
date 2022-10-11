@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:09:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/09/25 00:43:50 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/05 11:23:37 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "xutils.h"
 #include "minirt.h"
 
-int	create_trgb(int t, int r, int g, int b)
+int	create_rgba(int r, int g, int b, int a)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return (
+		(a & 0xff) << 24 |
+		(r & 0xff) << 16 |
+		(g & 0xff) << 8 |
+		(b & 0xff));
 }
 
 t_image	new_image(void *mlx, int width, int height)

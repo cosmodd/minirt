@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/04 15:37:26 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:38:17 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # include "objects.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(900)
-# define WIN_HEIGHT		(600)
+# define WIN_WIDTH		(1280)
+# define WIN_HEIGHT		(760)
 # define FOV			120
 # define INF			100000
 
