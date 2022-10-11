@@ -6,15 +6,15 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/05 10:40:48 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 10:34:27 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-#include "maths.h"
-#include "libft.h"
+# include "maths.h"
+# include "libft.h"
 
 typedef enum e_object
 {
@@ -98,6 +98,6 @@ t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color);
 double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane);
 t_sphere		*new_sphere(t_vec3 position, double radius, t_vec3 color);
 t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color);
-double			intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere);
+double			intersect_sphere(t_vec3 cam, t_vec3 raydir, t_sphere *sphere);
 
 #endif

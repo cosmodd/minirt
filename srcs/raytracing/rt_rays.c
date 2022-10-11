@@ -6,73 +6,30 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 10:25:14 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 11:31:12 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static char	*object_name(t_object type)
-{
-	if (type == SPHERE)
-		return ("⚪️ sphere");
-	else if (type == PLANE)
-		return ("⬜️ plane");
-	else if (type == CYLINDER)
-		return ("💊 cylinder");
-	return ("unknown");
-}
-
-static char	*get_object_position(t_collideable *collideable)
-{
-	t_vec3	position = {0, 0, 0};
-	char	*str = malloc(100);
-	
-	if (collideable->type == PLANE)
-		position = collideable->plane->position;
-	else if (collideable->type == SPHERE)
-		position = collideable->sphere->position;
-	else if (collideable->type == CYLINDER)
-		position = collideable->cylinder->position;
-	sprintf(str, "(%6.2f, %6.2f, %6.2f)", position.x, position.y, position.z);
-	return (str);
-}
-
 static bool	in_shadow(t_vec3 point, t_light light, t_scene scene)
 {
-	// static int		occurence = 0;
 	t_list			*current;
-	t_collideable	*collideable;
+	t_collideable	*coll;
 	t_vec3			point_to_light;
 	t_vec3			intersection;
-	double			distance;
-	double			t;
+	t_vec2			dist_t;
 
 	point_to_light = vec3_sub(light.position, point);
-	distance = vec3_magnitude(point_to_light);
+	dist_t.x = vec3_magnitude(point_to_light);
 	point_to_light = vec3_normalize(point_to_light);
 	current = scene.collideables;
 	while (current)
 	{
-		collideable = current->content;
-		t = collideable->intersect(point, point_to_light, collideable->ptr);
-		// intersection = vec3_scalar(point_to_light, t);
-		if (t > 1e-6 && t < distance)
-		{
-			// printf(
-			// 	"☄️ Collision with \e[1;37;44m %s %s \e[0m at t=%6.2f (%6.2f, %6.2f, %6.2f)\n",
-			// 	object_name(collideable->type),
-			// 	get_object_position(collideable),
-			// 	t,
-			// 	intersection.x,
-			// 	intersection.y,
-			// 	intersection.z
-			// );
-			// printf("🔵 (%6.2f, %6.2f, %6.2f) | ", point.x, point.y, point.z);
-			// printf("💡 (%6.2f, %6.2f, %6.2f) | ", light.position.x, light.position.y, light.position.z);
-			// printf("👉 (%6.2f, %6.2f, %6.2f)\n", point_to_light.x, point_to_light.y, point_to_light.z);
+		coll = current->content;
+		dist_t.y = coll->intersect(point, point_to_light, coll->ptr);
+		if (dist_t.y > 1e-6 && dist_t.y < dist_t.x)
 			return (true);
-		}
 		current = current->next;
 	}
 	return (false);
@@ -113,31 +70,19 @@ double	compute_lighting(t_vec3	point, t_vec3 normal, t_scene scene)
 
 t_vec3	get_coll_color(t_scene scene, t_collideable coll, double min, t_vec3 rd)
 {
-	t_vec3	P;
-	t_vec3	N;
+	t_vec3	point;
+	t_vec3	normal;
 	t_vec3	color;
 
-	// Lighting compute
-	P = vec3_add(scene.camera.position, vec3_scalar(rd, min)); // Compute intersection point
-	// color = (t_vec3){0, 0, 0};
+	point = vec3_add(scene.camera.position, vec3_scalar(rd, min));
 	color = coll.color;
-	N = (t_vec3){0, 0, 0};
+	normal = (t_vec3){0, 0, 0};
 	if (coll.type == PLANE)
-	{
-		N = coll.plane->direction;
-		// N = ((t_plane *)coll.object)->direction; // Compute intersection normal
-		// color = coll.plane->color;
-		// color = ((t_plane*)coll.object)->color;
-	}
+		normal = coll.plane->direction;
 	else if (coll.type == SPHERE)
-	{
-		N = vec3_sub(P, coll.sphere->position);
-		// N = vec3_sub(P, ((t_sphere*)coll.object)->position); // Compute intersection normal
-		// color = ((t_sphere*)coll.object)->color;
-	}
-	N = vec3_normalize(N);
-	return (vec3_scalar(color, compute_lighting(P, N, scene)));
-	// return (color);
+		normal = vec3_sub(point, coll.sphere->position);
+	normal = vec3_normalize(normal);
+	return (vec3_scalar(color, compute_lighting(point, normal, scene)));
 }
 
 int	raytrace(t_scene scene, t_vec3 raydir)
@@ -145,26 +90,25 @@ int	raytrace(t_scene scene, t_vec3 raydir)
 	t_list			*coll_node;
 	t_collideable	coll;
 	t_collideable	*nearest;
-	double			dist;
-	double			min;
+	t_vec2			dist_min;
 	t_vec3			color;
 
-	min = INF;
+	dist_min.y = INF;
 	nearest = NULL;
 	coll_node = scene.collideables;
 	while (coll_node != NULL)
 	{
 		coll = *(t_collideable *)(coll_node->content);
-		dist = coll.intersect(scene.camera.position, raydir, coll.ptr);
-		if (dist < min && dist >= 0)
+		dist_min.x = coll.intersect(scene.camera.position, raydir, coll.ptr);
+		if (dist_min.x < dist_min.y && dist_min.x >= 0)
 		{
-			min = dist;
+			dist_min.y = dist_min.x;
 			nearest = coll_node->content;
 		}
 		coll_node = coll_node->next;
 	}
 	if (nearest == NULL)
 		return (0);
-	color = get_coll_color(scene, *nearest, min, raydir);
+	color = get_coll_color(scene, *nearest, dist_min.x, raydir);
 	return (create_rgba(color.x, color.y, color.z, 0));
 }
