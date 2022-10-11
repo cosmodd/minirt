@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 11:31:12 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 13:43:37 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,24 @@ static bool	in_shadow(t_vec3 point, t_light light, t_scene scene)
  */
 double	compute_lighting(t_vec3	point, t_vec3 normal, t_scene scene)
 {
-	t_list	*lightNode;
+	t_list	*light_node;
 	t_light	light;
-	double	i;
 	t_vec3	vecto_l;
+	double	i;
 	double	ndl;
 
 	i = 0;
 	i += scene.ambient_light.intensity;
-	lightNode = scene.lights;
-	while (lightNode != NULL)
+	light_node = scene.lights;
+	while (light_node != NULL)
 	{
-		light = *(t_light*)(lightNode->content);
+		light = *(t_light *)(light_node->content);
 		vecto_l = vec3_sub(light.position, point);
 		ndl = vec3_dot(normal, vecto_l);
 		if (ndl > 0 && !in_shadow(point, light, scene))
-			i += light.intensity * (ndl / (vec3_magnitude(normal) * vec3_magnitude(vecto_l)));
-		lightNode = lightNode->next;
+			i += light.intensity * \
+				(ndl / (vec3_magnitude(normal) * vec3_magnitude(vecto_l)));
+		light_node = light_node->next;
 	}
 	i = math_minf(1, i);
 	return (i);
@@ -109,6 +110,6 @@ int	raytrace(t_scene scene, t_vec3 raydir)
 	}
 	if (nearest == NULL)
 		return (0);
-	color = get_coll_color(scene, *nearest, dist_min.x, raydir);
+	color = get_coll_color(scene, *nearest, dist_min.y, raydir);
 	return (create_rgba(color.x, color.y, color.z, 0));
 }

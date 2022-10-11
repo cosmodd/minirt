@@ -22,6 +22,7 @@ SRCS	=	srcs/main.c \
 			srcs/parsing/parsing.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
+			srcs/xutils/color.c \
 			srcs/xutils/image.c \
 
 OBJS	=	$(SRCS:.c=.o)

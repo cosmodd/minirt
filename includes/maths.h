@@ -6,14 +6,14 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/09/29 14:36:08 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 13:54:53 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATHS_H
 # define MATHS_H
 
-#include <math.h>
+# include <math.h>
 
 typedef struct s_vec2
 {
@@ -28,7 +28,7 @@ typedef struct s_vec3
 	double	z;
 }	t_vec3;
 
-typedef struct	s_mat4
+typedef struct s_mat4
 {
 	double	m[4][4];
 }	t_mat4;

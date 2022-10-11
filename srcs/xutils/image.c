@@ -6,21 +6,12 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:09:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/05 11:23:37 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/11 13:51:38 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "xutils.h"
 #include "minirt.h"
-
-int	create_rgba(int r, int g, int b, int a)
-{
-	return (
-		(a & 0xff) << 24 |
-		(r & 0xff) << 16 |
-		(g & 0xff) << 8 |
-		(b & 0xff));
-}
 
 t_image	new_image(void *mlx, int width, int height)
 {
@@ -57,12 +48,12 @@ void	put_pixel(t_image image, int x, int y, int color)
 }
 
 /**
- * @brief Put a pixel on a coord system where (0,0) 
+ * @brief Put a pixel on a coord system where (0,0)
  * is a the center of the frame.
- * @param image 
- * @param x 
- * @param y 
- * @param color 
+ * @param image
+ * @param x
+ * @param y
+ * @param color
  */
 void	put_pixel_canvas(t_image image, int x, int y, int color)
 {
