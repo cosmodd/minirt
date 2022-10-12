@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/11 10:26:08 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/12 10:34:38 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	key_hook(int keycode, t_engine *engine)
 	return (0);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_engine		engine;
 	t_collideable	*coll;
@@ -128,13 +128,20 @@ int	main(void)
 		// (t_vec3){2.5, 0, -10}
 	);
 
-	engine.scene.ambient_light.intensity = 0.2;
+	if (ac < 2)
+	{
+		plog(ERROR, "Not enough arguments ! Usage: ./minirt <scene.rt>");
+		return (EXIT_FAILURE);
+	}
+	parse_scene(&engine, av[1]);
 
-	t_vec3	lightPosition = (t_vec3){0, -10, 0};
+	// engine.scene.ambient_light.intensity = 0.2;
 
-	// Light
-	t_light	*lightPoint = new_light_point(lightPosition, .8, (t_vec3){0xFF, 0xFF, 0xFF});
-	ft_lstadd_back(&engine.scene.lights, ft_lstnew(lightPoint));
+	// t_vec3	lightPosition = (t_vec3){0, -10, 0};
+
+	// // Light
+	// t_light	*lightPoint = new_light_point(lightPosition, .8, (t_vec3){0xFF, 0xFF, 0xFF});
+	// ft_lstadd_back(&engine.scene.lights, ft_lstnew(lightPoint));
 
 	// Light sphere
 	// coll = new_sphere_col(lightPosition, .1, (t_vec3){0x0, 0x0, 0x0});
@@ -148,59 +155,59 @@ int	main(void)
 	// coll = new_sphere_col((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
 	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	coll = new_sphere_col((t_vec3){0, -7.5, 0}, 2, (t_vec3){254, 215, 102});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// coll = new_sphere_col((t_vec3){0, -7.5, 0}, 2, (t_vec3){254, 215, 102});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (floor)
-	coll = new_plane_col((t_vec3){0, -15, 0}, (t_vec3){0, 1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (floor)
+	// coll = new_plane_col((t_vec3){0, -15, 0}, (t_vec3){0, 1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (ceiling)
-	coll = new_plane_col((t_vec3){0, 15, 0}, (t_vec3){0, -1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (ceiling)
+	// coll = new_plane_col((t_vec3){0, 15, 0}, (t_vec3){0, -1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (front wall)
-	coll = new_plane_col((t_vec3){0, 0, -15}, (t_vec3){0, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (front wall)
+	// coll = new_plane_col((t_vec3){0, 0, -15}, (t_vec3){0, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (back wall)
-	coll = new_plane_col((t_vec3){0, 0, 15}, (t_vec3){0, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (back wall)
+	// coll = new_plane_col((t_vec3){0, 0, 15}, (t_vec3){0, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (right wall)
-	coll = new_plane_col((t_vec3){15, 0, 0}, (t_vec3){-1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (right wall)
+	// coll = new_plane_col((t_vec3){15, 0, 0}, (t_vec3){-1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (left wall)
-	coll = new_plane_col((t_vec3){-15, 0, 0}, (t_vec3){1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (left wall)
+	// coll = new_plane_col((t_vec3){-15, 0, 0}, (t_vec3){1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	// Gray plane (diag wall)
-	coll = new_plane_col((t_vec3){-10, 0, -10}, (t_vec3){1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-	
-	// Gray plane (diag wall)
-	coll = new_plane_col((t_vec3){10, 0, -10}, (t_vec3){-1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-	
-	// Gray plane (diag wall)
-	coll = new_plane_col((t_vec3){-10, 0, 10}, (t_vec3){1, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+	// // Gray plane (diag wall)
+	// coll = new_plane_col((t_vec3){-10, 0, -10}, (t_vec3){1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
 
-	basic_raytracer(&engine);
+	// // Gray plane (diag wall)
+	// coll = new_plane_col((t_vec3){10, 0, -10}, (t_vec3){-1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+
+	// // Gray plane (diag wall)
+	// coll = new_plane_col((t_vec3){-10, 0, 10}, (t_vec3){1, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
+	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
+
+	// basic_raytracer(&engine);
 
 	// Put crosshair
-	for (int i = -5; i <= 5; i++)
-	{
-		t_vec2	hpos = (t_vec2){WIN_WIDTH / 2 + i, WIN_HEIGHT / 2};
-		t_vec2	vpos = (t_vec2){WIN_WIDTH / 2, WIN_HEIGHT / 2 + i};
-		int		hpixel = get_pixel(engine.frame, hpos.x, hpos.y);
-		int		vpixel = get_pixel(engine.frame, vpos.x, vpos.y);
-		put_pixel(engine.frame, hpos.x, hpos.y, 0xFFFFFF - hpixel);
-		put_pixel(engine.frame, vpos.x, vpos.y, 0xFFFFFF - vpixel);
-	}
+	// for (int i = -5; i <= 5; i++)
+	// {
+	// 	t_vec2	hpos = (t_vec2){WIN_WIDTH / 2 + i, WIN_HEIGHT / 2};
+	// 	t_vec2	vpos = (t_vec2){WIN_WIDTH / 2, WIN_HEIGHT / 2 + i};
+	// 	int		hpixel = get_pixel(engine.frame, hpos.x, hpos.y);
+	// 	int		vpixel = get_pixel(engine.frame, vpos.x, vpos.y);
+	// 	put_pixel(engine.frame, hpos.x, hpos.y, 0xFFFFFF - hpixel);
+	// 	put_pixel(engine.frame, vpos.x, vpos.y, 0xFFFFFF - vpixel);
+	// }
 
-	mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
-	mlx_key_hook(engine.win, key_hook, &engine);
-	mlx_loop(engine.mlx);
+	// mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
+	// mlx_key_hook(engine.win, key_hook, &engine);
+	// mlx_loop(engine.mlx);
 }

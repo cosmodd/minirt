@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/05 14:38:17 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/12 10:43:01 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@
 # include "keys.h"
 # include "maths.h"
 # include "objects.h"
+# include "logging.h"
+# include "utils.h"
 
 // CONSTANTS
 # define WIN_WIDTH		(1280)
 # define WIN_HEIGHT		(760)
 # define FOV			120
-# define INF			100000
+# define INF			1e6
 
 typedef struct s_engine
 {
@@ -50,10 +52,11 @@ typedef struct s_engine
 	double	vp_dist;
 }	t_engine;
 
-/* rt_rays.c	*/
+// RAYTRACING
+void	basic_raytracer(t_engine *engine);
 int		raytrace(t_scene scene, t_vec3 raydir);
 
-/* rt_engine.c	*/
-void	basic_raytracer(t_engine *engine);
+// SCENE PARSING
+bool	parse_scene(t_engine *engine, char *path);
 
 #endif
