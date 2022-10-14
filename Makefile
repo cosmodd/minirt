@@ -2,7 +2,8 @@
 #  SOURCES                                                                     #
 ################################################################################
 
-SRCS	=	srcs/main.c \
+SRCS	=	srcs/logging.c \
+			srcs/main.c \
 			srcs/maths/abs.c \
 			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/min_max.c \
@@ -20,9 +21,13 @@ SRCS	=	srcs/main.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \
 			srcs/objects/cylinder.c \
+			srcs/parsing/objects.c \
 			srcs/parsing/parsing.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
+			srcs/utils/str_split.c \
+			srcs/utils/strl_free.c \
+			srcs/utils/strl_len.c \
 			srcs/xutils/color.c \
 			srcs/xutils/image.c \
 
@@ -115,6 +120,6 @@ libs-re:
 	@make -sC ./libs/minilibx re
 
 run: $(NAME)
-	@./$(NAME)
+	@./$(NAME) scenes/subject.rt
 
 .PHONY: all clean fclean re
