@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_rays.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 13:43:37 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 13:05:51 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ t_vec3	get_coll_color(t_scene scene, t_collideable coll, double min, t_vec3 rd)
 		normal = coll.plane->direction;
 	else if (coll.type == SPHERE)
 		normal = vec3_sub(point, coll.sphere->position);
+	else if (coll.type == CYLINDER)
+		return (coll.cylinder->color);
 	normal = vec3_normalize(normal);
 	return (vec3_scalar(color, compute_lighting(point, normal, scene)));
 }

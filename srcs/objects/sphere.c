@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/04 16:17:30 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 11:30:21 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
 	r = sphere->radius;
 	vec_co = vec3_sub(camera, sphere->position);
 	abc.x = vec3_dot(raydir, raydir);
-	abc.y = 2.0 * vec3_dot(vec_co, raydir);
+	abc.y = 2.0 * vec3_dot(raydir, vec_co);
 	abc.z = vec3_dot(vec_co, vec_co) - r * r;
 	discriminant = abc.y * abc.y - 4.0 * abc.x * abc.z;
 	if (discriminant >= 0)

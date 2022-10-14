@@ -19,6 +19,7 @@ SRCS	=	srcs/main.c \
 			srcs/objects/object.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \
+			srcs/objects/cylinder.c \
 			srcs/parsing/parsing.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
