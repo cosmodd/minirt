@@ -6,42 +6,99 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/12 10:34:38 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 11:52:56 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// void	print_vec3(t_vec3 v)
-// {
-// 	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
-// }
+void	print_vec3(t_vec3 v)
+{
+	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
+}
 
-// void	print_mat4(t_mat4 mat)
-// {
-// 	for (int i = 0; i < 4; i++)
-// 	{
-// 		if (i == 0)
-// 			printf("┌ ");
-// 		else if (i == 3)
-// 			printf("└ ");
-// 		else
-// 			printf("│ ");
-// 		for (int j = 0; j < 4; j++)
-// 		{
-// 			printf("%10.5f", mat.m[i][j]);
-// 			if (j < 3)
-// 				printf(", ");
-// 		}
-// 		if (i == 0)
-// 			printf(" ┐");
-// 		else if (i == 3)
-// 			printf(" ┘");
-// 		else
-// 			printf(" │");
-// 		printf("\n");
-// 	}
-// }
+static char	*get_coll_type(t_object type)
+{
+	if (type == SPHERE)
+		return ("⚪️ Sphere");
+	else if (type == PLANE)
+		return ("⬜️ Plane");
+	else if (type == CYLINDER)
+		return ("🟡 Cylinder");
+	return ("❓ Unknown");
+}
+
+static void	print_collideables(t_scene *scene)
+{
+	t_list			*lst;
+	t_collideable	*coll;
+
+	lst = scene->collideables;
+	while (lst != NULL)
+	{
+		coll = lst->content;
+		if (coll->type == SPHERE)
+		{
+			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
+			printf("POS: "); print_vec3(coll->sphere->position);
+			printf("RAD: %.3f\n", coll->sphere->radius);
+			printf("COL: "); print_vec3(coll->sphere->color);
+		}
+		else if (coll->type == PLANE)
+		{
+			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
+			printf("POS: "); print_vec3(coll->plane->position);
+			printf("DIR: "); print_vec3(coll->plane->direction);
+			printf("COL: "); print_vec3(coll->plane->color);
+		}
+		else if (coll->type == CYLINDER)
+		{
+			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
+			printf("POS: "); print_vec3(coll->cylinder->position);
+			printf("DIR: "); print_vec3(coll->cylinder->direction);
+			printf("DIA: %.3f\n", coll->cylinder->diameter);
+			printf("HGT: %.3f\n", coll->cylinder->height);
+			printf("COL: "); print_vec3(coll->cylinder->color);
+		}
+		printf("------------------------\n");
+		lst = lst->next;
+	}
+}
+
+static void	print_lights(t_scene *scene)
+{
+	t_list	*lst;
+	t_light	*light;
+
+	lst = scene->lights;
+	while (lst != NULL)
+	{
+		light = lst->content;
+		printf("\e[1;3;37;44m 💡 Light \e[0m\n");
+		printf("POS: "); print_vec3(light->position);
+		printf("BRT: %.3f\n", light->intensity);
+		printf("COL: "); print_vec3(light->color);
+		printf("------------------------\n");
+		lst = lst->next;
+	}
+}
+
+static void	print_scene(t_scene *scene)
+{
+	printf("\e[1;3;37;44m 🎬 Scene \e[0m\n");
+	printf("------------------------\n");
+	printf("\e[1;3;37;44m 🌞 Ambient light \e[0m\n");
+	printf("BRT: %.3f\n", scene->ambient_light.intensity);
+	printf("COL: "); print_vec3(scene->ambient_light.color);
+	printf("------------------------\n");
+	printf("\e[1;3;37;44m 📷 Camera \e[0m\n");
+	printf("POS: "); print_vec3(scene->camera.position);
+	printf("DIR: "); print_vec3(scene->camera.direction);
+	printf("FOV: %.3f\n", scene->camera.fov);
+	printf("------------------------\n");
+	print_lights(scene);
+	print_collideables(scene);
+}
 
 void	quit(t_engine *engine)
 {
@@ -113,101 +170,21 @@ int	main(int ac, char **av)
 
 	engine.vw = (double)WIN_WIDTH / (double)WIN_HEIGHT;
 	engine.vh = 1;
-	engine.vp_dist = engine.vw / tan(FOV * M_PI / 180 / 2);
-
-	engine.hfov = FOV * M_PI / 180;
-	engine.vfov = 2 * atan(tan(engine.hfov / 2) * (engine.vh / engine.vw));
-
-	engine.scene.camera.position = (t_vec3){14, -14, 14};
-	// engine.scene.camera.position = (t_vec3){0, 0, 15};
-	engine.scene.camera.direction = vec3_normalize((t_vec3){-2, 1, -2});
-	// engine.scene.camera.direction = vec3_normalize((t_vec3){0, 0, -1});
-	engine.scene.camera.view = mat4_lookat(
-		engine.scene.camera.position,
-		vec3_add(engine.scene.camera.position, engine.scene.camera.direction)
-		// (t_vec3){2.5, 0, -10}
-	);
 
 	if (ac < 2)
 	{
 		plog(ERROR, "Not enough arguments ! Usage: ./minirt <scene.rt>");
 		return (EXIT_FAILURE);
 	}
+	
 	parse_scene(&engine, av[1]);
+	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
+	
+	print_scene(&engine.scene);
+	
+	basic_raytracer(&engine);
+	mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
 
-	// engine.scene.ambient_light.intensity = 0.2;
-
-	// t_vec3	lightPosition = (t_vec3){0, -10, 0};
-
-	// // Light
-	// t_light	*lightPoint = new_light_point(lightPosition, .8, (t_vec3){0xFF, 0xFF, 0xFF});
-	// ft_lstadd_back(&engine.scene.lights, ft_lstnew(lightPoint));
-
-	// Light sphere
-	// coll = new_sphere_col(lightPosition, .1, (t_vec3){0x0, 0x0, 0x0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Red sphere
-	// coll = new_sphere_col((t_vec3){2.5, 0, -10}, 2, (t_vec3){254, 74, 73});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Yellow sphere
-	// coll = new_sphere_col((t_vec3){-2.5, 0, -10}, 2, (t_vec3){254, 215, 102});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// coll = new_sphere_col((t_vec3){0, -7.5, 0}, 2, (t_vec3){254, 215, 102});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (floor)
-	// coll = new_plane_col((t_vec3){0, -15, 0}, (t_vec3){0, 1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (ceiling)
-	// coll = new_plane_col((t_vec3){0, 15, 0}, (t_vec3){0, -1, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (front wall)
-	// coll = new_plane_col((t_vec3){0, 0, -15}, (t_vec3){0, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (back wall)
-	// coll = new_plane_col((t_vec3){0, 0, 15}, (t_vec3){0, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (right wall)
-	// coll = new_plane_col((t_vec3){15, 0, 0}, (t_vec3){-1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (left wall)
-	// coll = new_plane_col((t_vec3){-15, 0, 0}, (t_vec3){1, 0, 0}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (diag wall)
-	// coll = new_plane_col((t_vec3){-10, 0, -10}, (t_vec3){1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (diag wall)
-	// coll = new_plane_col((t_vec3){10, 0, -10}, (t_vec3){-1, 0, 1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// // Gray plane (diag wall)
-	// coll = new_plane_col((t_vec3){-10, 0, 10}, (t_vec3){1, 0, -1}, (t_vec3){0xF0, 0xF0, 0xF0});
-	// ft_lstadd_back(&engine.scene.collideables, ft_lstnew(coll));
-
-	// basic_raytracer(&engine);
-
-	// Put crosshair
-	// for (int i = -5; i <= 5; i++)
-	// {
-	// 	t_vec2	hpos = (t_vec2){WIN_WIDTH / 2 + i, WIN_HEIGHT / 2};
-	// 	t_vec2	vpos = (t_vec2){WIN_WIDTH / 2, WIN_HEIGHT / 2 + i};
-	// 	int		hpixel = get_pixel(engine.frame, hpos.x, hpos.y);
-	// 	int		vpixel = get_pixel(engine.frame, vpos.x, vpos.y);
-	// 	put_pixel(engine.frame, hpos.x, hpos.y, 0xFFFFFF - hpixel);
-	// 	put_pixel(engine.frame, vpos.x, vpos.y, 0xFFFFFF - vpixel);
-	// }
-
-	// mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
-	// mlx_key_hook(engine.win, key_hook, &engine);
-	// mlx_loop(engine.mlx);
+	mlx_key_hook(engine.win, key_hook, &engine);
+	mlx_loop(engine.mlx);
 }

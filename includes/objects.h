@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 10:34:27 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 10:33:54 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_camera
 {
 	t_vec3	position;
 	t_vec3	direction;
+	double	fov;
 	t_mat4	view;
 }	t_camera;
 

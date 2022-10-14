@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/12 10:43:01 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 11:28:28 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_engine
 	void	*win;
 	t_image	frame;
 	t_scene	scene;
-	double	hfov;
-	double	vfov;
 	double	vw;
 	double	vh;
 	double	vp_dist;
 }	t_engine;
+
+void	quit(t_engine *engine);
 
 // RAYTRACING
 void	basic_raytracer(t_engine *engine);

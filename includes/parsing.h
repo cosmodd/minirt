@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 10:40:56 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 09:48:50 by mrattez          ###   ########.fr       */
+/*   Created: 2022/10/14 09:55:26 by mrattez           #+#    #+#             */
+/*   Updated: 2022/10/14 10:43:04 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include <stdio.h>
+// STANDARD INCLUDES
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
-# include "libft.h"
+// LIBRARY INCLUDES
 
-void	strl_free(char ***list);
-char	**str_split(char *str, char *delim);
-size_t	strl_len(char **str);
+// PROJECT INCLUDES
+# include "minirt.h"
+# include "utils.h"
 
-#endif
+t_vec3	parse_vec3(char *str);
+t_vec3	parse_color(char *str);
+double	parse_double(char *str);
+
+void	parse_object(t_engine *engine, char *type, char **parameters);
+
+#endif // PARSING_H

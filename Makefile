@@ -20,11 +20,13 @@ SRCS	=	srcs/logging.c \
 			srcs/objects/object.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \
+			srcs/parsing/objects.c \
 			srcs/parsing/parsing.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
 			srcs/utils/str_split.c \
 			srcs/utils/strl_free.c \
+			srcs/utils/strl_len.c \
 			srcs/xutils/color.c \
 			srcs/xutils/image.c \
 
