@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 11:52:56 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/14 13:18:27 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ int	key_hook(int keycode, t_engine *engine)
 int	main(int ac, char **av)
 {
 	t_engine		engine;
-	t_collideable	*coll;
 
 	ft_bzero(&engine, sizeof(engine));
 	engine.mlx = mlx_init();

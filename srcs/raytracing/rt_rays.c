@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/14 13:05:51 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:18:44 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static bool	in_shadow(t_vec3 point, t_light light, t_scene scene)
 	t_list			*current;
 	t_collideable	*coll;
 	t_vec3			point_to_light;
-	t_vec3			intersection;
 	t_vec2			dist_t;
 
 	point_to_light = vec3_sub(light.position, point);
