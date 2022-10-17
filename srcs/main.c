@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 13:18:27 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:17:49 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	print_collideables(t_scene *scene)
 			printf("POS: "); print_vec3(coll->cylinder->position);
 			printf("DIR: "); print_vec3(coll->cylinder->direction);
 			printf("DIA: %.3f\n", coll->cylinder->diameter);
+			printf("RAD: %.3f\n", coll->cylinder->radius);
 			printf("HGT: %.3f\n", coll->cylinder->height);
 			printf("COL: "); print_vec3(coll->cylinder->color);
 		}

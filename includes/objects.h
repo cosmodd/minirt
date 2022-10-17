@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/14 13:16:34 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:21:27 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane);
 t_sphere		*new_sphere(t_vec3 position, double radius, t_vec3 color);
 t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color);
 double			intersect_sphere(t_vec3 cam, t_vec3 raydir, t_sphere *sphere);
-t_cylinder 		*new_cylinder(t_vec3 position, double radius, t_vec3 color);
-t_collideable	*new_cylinder_col(t_vec3 position, double radius, t_vec3 color);
+t_cylinder 		*new_cylinder(t_vec3 position, t_vec3 direction, double radius, double height, t_vec3 color);
+t_collideable	*new_cylinder_col(t_vec3 position, t_vec3 direction, double diameter, double height, t_vec3 color);
 double			intersect_cylinder(t_vec3 camera, t_vec3 raydir, t_cylinder *cyl);
 #endif
