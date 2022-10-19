@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 10:39:33 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/19 09:36:21 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void	basic_raytracer(t_engine *engine)
 		y++;
 	}
 }
-

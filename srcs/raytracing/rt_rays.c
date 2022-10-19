@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_rays.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/14 13:18:44 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:40:38 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,17 @@ t_vec3	get_coll_color(t_scene scene, t_collideable coll, double min, t_vec3 rd)
 	return (vec3_scalar(color, compute_lighting(point, normal, scene)));
 }
 
+static char	*get_coll_type(t_object type)
+{
+	if (type == SPHERE)
+		return ("⚪️ Sphere");
+	else if (type == PLANE)
+		return ("⬜️ Plane");
+	else if (type == CYLINDER)
+		return ("💊 Cylinder");
+	return ("❓ Unknown");
+}
+
 int	raytrace(t_scene scene, t_vec3 raydir)
 {
 	t_list			*coll_node;
@@ -102,8 +113,21 @@ int	raytrace(t_scene scene, t_vec3 raydir)
 	{
 		coll = *(t_collideable *)(coll_node->content);
 		dist_min.x = coll.intersect(scene.camera.position, raydir, coll.ptr);
-		if (dist_min.x < dist_min.y && dist_min.x >= 0)
+		if (dist_min.x >= 0 && dist_min.x < dist_min.y)
 		{
+			if (coll.type == CYLINDER
+				&& nearest->type == SPHERE
+				&& raydir.x < -0.1)
+			{
+				t_vec3	tp = vec3_add(scene.camera.position, vec3_scalar(raydir, dist_min.x));
+				t_vec3	cam = scene.camera.position;
+				printf(" CAM: (%f, %f, %f) \n", cam.x, cam.y, cam.z);
+				printf("RAYD: (%f, %f, %f) \n", raydir.x, raydir.y, raydir.z);
+				printf("DIST: %f (%f, %f, %f) \n", dist_min.x, tp.x, tp.y, tp.z);
+				tp = vec3_add(scene.camera.position, vec3_scalar(raydir, dist_min.y));
+				printf(" MIN: %f (%f, %f, %f) from %s\n", dist_min.y, tp.x, tp.y, tp.z, get_coll_type(nearest->type));
+				printf("-------------\n");
+			}
 			dist_min.y = dist_min.x;
 			nearest = coll_node->content;
 		}

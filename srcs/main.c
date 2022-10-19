@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/17 09:17:49 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/19 14:33:03 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*get_coll_type(t_object type)
 	else if (type == PLANE)
 		return ("⬜️ Plane");
 	else if (type == CYLINDER)
-		return ("🟡 Cylinder");
+		return ("💊 Cylinder");
 	return ("❓ Unknown");
 }
 
@@ -118,9 +118,7 @@ int	key_hook(int keycode, t_engine *engine)
 	if (keycode == K_W || keycode == K_S)
 	{
 		t_vec3	dir = vec3_scalar(engine->scene.camera.direction, (keycode == K_W) * 2 - 1);
-		// printf("dir: %f %f %f\n", dir.x, dir.y, dir.z);
-		// dir.x *= -1;
-		// dir.z *= -1;
+
 		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
@@ -131,11 +129,9 @@ int	key_hook(int keycode, t_engine *engine)
 	}
 	if (keycode == K_A || keycode == K_D)
 	{
-		t_vec3	camdir = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, -M_PI_2);
-		t_vec3	dir = vec3_scalar(camdir, (keycode == K_D) * 2 - 1);
-		// dir.x *= -1;
-		// dir.z *= -1;
-		// printf("ir: %f %f %f\n", dir.x, dir.y, dir.z);
+		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
+		t_vec3	dir = vec3_scalar(right, (keycode == K_D) * 2 - 1);
+
 		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
@@ -144,11 +140,26 @@ int	key_hook(int keycode, t_engine *engine)
 		basic_raytracer(engine);
 		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
 	}
-	if (keycode == ARROW_RIGHT || keycode == ARROW_LEFT)
+	if (keycode == K_J || keycode == K_L)
 	{
 		double	abs_angle = M_PI / 6;
-		double	rot_angle = (keycode == ARROW_RIGHT) * 2 * abs_angle - abs_angle;
+		double	rot_angle = (keycode == K_L) * 2 * abs_angle - abs_angle;
+
 		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, -rot_angle);
+		engine->scene.camera.view = mat4_lookat(
+			engine->scene.camera.position,
+			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
+		);
+		basic_raytracer(engine);
+		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+	}
+	if (keycode == K_I || keycode == K_K)
+	{
+		double	abs_angle = M_PI / 6;
+		double	rot_angle = (keycode == K_K) * 2 * abs_angle - abs_angle;
+		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
+
+		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, right, -rot_angle);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
@@ -176,12 +187,12 @@ int	main(int ac, char **av)
 		plog(ERROR, "Not enough arguments ! Usage: ./minirt <scene.rt>");
 		return (EXIT_FAILURE);
 	}
-	
+
 	parse_scene(&engine, av[1]);
 	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
-	
+
 	print_scene(&engine.scene);
-	
+
 	basic_raytracer(&engine);
 	mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
 
