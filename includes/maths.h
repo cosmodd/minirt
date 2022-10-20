@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/11 13:54:53 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 11:00:11 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ typedef struct s_mat4
 }	t_mat4;
 
 t_mat4	mat4_lookat(t_vec3 position, t_vec3 direction);
-double	math_abs(double value);
-double	math_minf(double a, double b);
-double	math_maxf(double a, double b);
 t_vec2	vec2_add(t_vec2 a, t_vec2 b);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 double	vec2_cross(t_vec2 a, t_vec2 b);

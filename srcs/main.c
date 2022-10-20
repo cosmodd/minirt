@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/19 14:33:03 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 08:48:39 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,32 @@ void	quit(t_engine *engine)
 	exit(0);
 }
 
+static void	draw(t_engine *engine)
+{
+	static const int	crosshair_size = 10;
+	basic_raytracer(engine);
+	for (int i = -crosshair_size / 2; i < crosshair_size / 2; i++)
+	{
+		t_vec2	hpos = (t_vec2){
+			i + (engine->frame.width / 2 - floor(crosshair_size / 2.0)),
+			engine->frame.height / 2.0
+		};
+		t_vec2	vpos = (t_vec2){
+			engine->frame.width / 2.0,
+			i + (engine->frame.height / 2 - floor(crosshair_size / 2.0))
+		};
+		int	hp = get_pixel(engine->frame, hpos.x, hpos.y);
+		int	vp = get_pixel(engine->frame, vpos.x, vpos.y);
+		put_pixel(engine->frame, hpos.x, hpos.y, hp ^ 0xFFFFFF);
+		put_pixel(engine->frame, vpos.x, vpos.y, vp ^ 0xFFFFFF);
+	}
+	mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+}
+
 int	key_hook(int keycode, t_engine *engine)
 {
+	static double	rotationAngle = M_PI / 90;
+	
 	if (keycode == ESC)
 		quit(engine);
 	if (keycode == K_W || keycode == K_S)
@@ -124,8 +148,7 @@ int	key_hook(int keycode, t_engine *engine)
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
 		);
-		basic_raytracer(engine);
-		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+		draw(engine);
 	}
 	if (keycode == K_A || keycode == K_D)
 	{
@@ -137,35 +160,46 @@ int	key_hook(int keycode, t_engine *engine)
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
 		);
-		basic_raytracer(engine);
-		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+		draw(engine);
+	}
+	if (keycode == SPACE || keycode == CONTROL_LEFT)
+	{
+		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
+		t_vec3	up = vec3_normalize(vec3_cross(engine->scene.camera.direction, right));
+		t_vec3	dir = vec3_normalize(vec3_scalar(up, (keycode == CONTROL_LEFT) * 2 - 1));
+
+		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
+		engine->scene.camera.view = mat4_lookat(
+			engine->scene.camera.position,
+			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
+		);
+		draw(engine);
 	}
 	if (keycode == K_J || keycode == K_L)
 	{
-		double	abs_angle = M_PI / 6;
-		double	rot_angle = (keycode == K_L) * 2 * abs_angle - abs_angle;
+		double	rot_angle = (keycode == K_L) * 2 * rotationAngle - rotationAngle;
 
 		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, (t_vec3){0, 1, 0}, -rot_angle);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
 		);
-		basic_raytracer(engine);
-		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+		draw(engine);
 	}
 	if (keycode == K_I || keycode == K_K)
 	{
-		double	abs_angle = M_PI / 6;
-		double	rot_angle = (keycode == K_K) * 2 * abs_angle - abs_angle;
+		double	rot_angle = (keycode == K_K) * 2 * rotationAngle- rotationAngle;
 		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
 
+		if (fabs(engine->scene.camera.direction.y) == 1)
+			right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 0, -engine->scene.camera.direction.y});
+		right = vec3_normalize(right);
 		engine->scene.camera.direction = vec3_rotate(engine->scene.camera.direction, right, -rot_angle);
 		engine->scene.camera.view = mat4_lookat(
 			engine->scene.camera.position,
 			vec3_add(engine->scene.camera.position, engine->scene.camera.direction)
 		);
-		basic_raytracer(engine);
-		mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+		draw(engine);
 	}
 	return (0);
 }
@@ -193,9 +227,8 @@ int	main(int ac, char **av)
 
 	print_scene(&engine.scene);
 
-	basic_raytracer(&engine);
-	mlx_put_image_to_window(engine.mlx, engine.win, engine.frame.ptr, 0, 0);
-
+	draw(&engine);
+	mlx_do_key_autorepeaton(engine.mlx);
 	mlx_key_hook(engine.win, key_hook, &engine);
 	mlx_loop(engine.mlx);
 }

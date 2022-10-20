@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/19 16:40:38 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 11:06:33 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ double	compute_lighting(t_vec3	point, t_vec3 normal, t_scene scene)
 				(ndl / (vec3_magnitude(normal) * vec3_magnitude(vecto_l)));
 		light_node = light_node->next;
 	}
-	i = math_minf(1, i);
+	i = fmin(1, i);
 	return (i);
 }
 
@@ -98,7 +98,7 @@ static char	*get_coll_type(t_object type)
 	return ("❓ Unknown");
 }
 
-int	raytrace(t_scene scene, t_vec3 raydir)
+int	raytrace(t_scene scene, t_vec3 raydir, t_vec2 sp)
 {
 	t_list			*coll_node;
 	t_collideable	coll;
@@ -115,19 +115,6 @@ int	raytrace(t_scene scene, t_vec3 raydir)
 		dist_min.x = coll.intersect(scene.camera.position, raydir, coll.ptr);
 		if (dist_min.x >= 0 && dist_min.x < dist_min.y)
 		{
-			if (coll.type == CYLINDER
-				&& nearest->type == SPHERE
-				&& raydir.x < -0.1)
-			{
-				t_vec3	tp = vec3_add(scene.camera.position, vec3_scalar(raydir, dist_min.x));
-				t_vec3	cam = scene.camera.position;
-				printf(" CAM: (%f, %f, %f) \n", cam.x, cam.y, cam.z);
-				printf("RAYD: (%f, %f, %f) \n", raydir.x, raydir.y, raydir.z);
-				printf("DIST: %f (%f, %f, %f) \n", dist_min.x, tp.x, tp.y, tp.z);
-				tp = vec3_add(scene.camera.position, vec3_scalar(raydir, dist_min.y));
-				printf(" MIN: %f (%f, %f, %f) from %s\n", dist_min.y, tp.x, tp.y, tp.z, get_coll_type(nearest->type));
-				printf("-------------\n");
-			}
 			dist_min.y = dist_min.x;
 			nearest = coll_node->content;
 		}

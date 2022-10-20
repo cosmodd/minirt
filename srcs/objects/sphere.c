@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 11:30:21 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:07:23 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
 	t_vec3	vec_co;
 	t_vec3	abc;
 	double	discriminant;
+	double	t[2];
 
 	r = sphere->radius;
 	vec_co = vec3_sub(camera, sphere->position);
@@ -75,7 +76,11 @@ double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
 	abc.y = 2.0 * vec3_dot(raydir, vec_co);
 	abc.z = vec3_dot(vec_co, vec_co) - r * r;
 	discriminant = abc.y * abc.y - 4.0 * abc.x * abc.z;
-	if (discriminant >= 0)
-		return ((-abc.y - sqrt(discriminant)) / (2.0 * abc.x));
-	return (INF);
+	if (discriminant < 1e-6)
+		return (-1);
+	t[0] = (-abc.y - sqrt(discriminant)) / (2.0 * abc.x);
+	t[1] = (-abc.y + sqrt(discriminant)) / (2.0 * abc.x);
+	if (t[0] < 0 || t[1] < 0)
+		return (fmax(t[0], t[1]));
+	return (fmin(t[0], t[1]));
 }

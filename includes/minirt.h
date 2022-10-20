@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/19 11:04:41 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 08:31:53 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	quit(t_engine *engine);
 
 // RAYTRACING
 void	basic_raytracer(t_engine *engine);
-int		raytrace(t_scene scene, t_vec3 raydir);
+int		raytrace(t_scene scene, t_vec3 raydir, t_vec2 sp);
 
 // SCENE PARSING
 bool	parse_scene(t_engine *engine, char *path);

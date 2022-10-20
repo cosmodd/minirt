@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/19 09:36:21 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 08:34:00 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	basic_raytracer(t_engine *engine)
 		{
 			raydir = generate_raydir(engine, (t_vec2){x, y});
 			raydir = vec3_mat4(raydir, engine->scene.camera.view);
-			color = raytrace(engine->scene, raydir);
+			color = raytrace(engine->scene, raydir, (t_vec2){x, y});
 			put_pixel_canvas(engine->frame, x, y, color);
 			x++;
 		}

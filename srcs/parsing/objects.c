@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 10:18:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/17 09:16:48 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:47:21 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	parse_object(t_engine *engine, char *type, char **params)
 			vec3_normalize(parse_vec3(params[1])), parse_color(params[2])));
 	else if (ft_strcmp(type, "cy") == 0)
 		push_col(&engine->scene, new_cylinder_col(parse_vec3(params[0]),
-			parse_vec3(params[1]), parse_double(params[2]),
+			vec3_normalize(parse_vec3(params[1])), parse_double(params[2]),
 				parse_double(params[3]), parse_color(params[4])));
 	else
 	{
