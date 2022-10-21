@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 13:05:37 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/21 17:42:38 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,13 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	t[0] = (-abc.y + sqrt(disc)) / (2 * abc.x);
 	t[1] = (-abc.y - sqrt(disc)) / (2 * abc.x);
 
-	if (disc < 1e-6)
-		return (-1);
-	if (disc == 0)
-		return (t[0]);
-	if (t[0] < 0 || t[1] < 0)
-		return (fmax(t[0], t[1]));
+	if (disc < THRESHOLD || t[0] < 0 || t[1] < 0){
+		t[0] = intersect_disk(camera, r, c_h[0], h[0], cyl->radius);
+		t[1] = intersect_disk(camera, r, c_h[1], h[1], cyl->radius);
+		if (t[0] >= 0 && (t[0] < t[1] || t[1] < 0))
+			return (t[0]);
+		return (t[1]);
+	}
 	
 	t[2] = fmin(t[0], t[1]);
 
