@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   vector_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 13:51:29 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 14:15:30 by mrattez          ###   ########.fr       */
+/*   Created: 2022/10/20 16:31:23 by mrattez           #+#    #+#             */
+/*   Updated: 2022/10/20 17:24:38 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "xutils.h"
+#include "maths.h"
 
-int	rgba(int r, int g, int b, int a)
+t_vec3	vec3_from_rgba(int color)
+{
+	return ((t_vec3){
+		.x = (color >> 16) & 0xff,
+		.y = (color >> 8) & 0xff,
+		.z = color & 0xff});
+}
+
+int	vec3_to_rgba(t_vec3 color)
 {
 	return (
-		(a & 0xff) << 24
-		| (r & 0xff) << 16
-		| (g & 0xff) << 8
-		| (b & 0xff));
+		((int)color.x & 0xff) << 16
+		| ((int)color.y & 0xff) << 8
+		| ((int)color.z & 0xff));
 }

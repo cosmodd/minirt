@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 08:34:00 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 17:30:43 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,22 @@ static t_vec3	generate_raydir(t_engine *engine, t_vec2 pixel)
 
 void	basic_raytracer(t_engine *engine)
 {
-	t_vec3	raydir;
-	int		color;
+	t_hit	hit;
+	double	color;
 	int		x;
 	int		y;
 
+	hit = (t_hit){0};
 	y = -WIN_HEIGHT / 2;
 	while (y < WIN_HEIGHT / 2)
 	{
 		x = -WIN_WIDTH / 2;
 		while (x < WIN_WIDTH / 2)
 		{
-			raydir = generate_raydir(engine, (t_vec2){x, y});
-			raydir = vec3_mat4(raydir, engine->scene.camera.view);
-			color = raytrace(engine->scene, raydir, (t_vec2){x, y});
-			put_pixel_canvas(engine->frame, x, y, color);
+			hit.raydir = generate_raydir(engine, (t_vec2){x, y});
+			hit.raydir = vec3_mat4(hit.raydir, engine->scene.camera.view);
+			raytrace(engine->scene, &hit);
+			put_pixel_canvas(engine->frame, x, y, vec3_to_rgba(hit.color));
 			x++;
 		}
 		y++;

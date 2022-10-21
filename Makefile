@@ -6,6 +6,7 @@ SRCS	=	srcs/logging.c \
 			srcs/main.c \
 			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/vector/vector_add.c \
+			srcs/maths/vector/vector_color.c \
 			srcs/maths/vector/vector_cross.c \
 			srcs/maths/vector/vector_dot.c \
 			srcs/maths/vector/vector_magnitude.c \

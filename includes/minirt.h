@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 08:31:53 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 17:23:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 # define WIN_WIDTH		(400)
 # define WIN_HEIGHT		(400)
 # define FOV			120
-# define INF			1e6
+# define THRESHOLD		1e-6
+# define VOID_COLOR		0x000000
 
 typedef struct s_engine
 {
@@ -50,11 +51,20 @@ typedef struct s_engine
 	double	vp_dist;
 }	t_engine;
 
+typedef struct s_hit
+{
+	t_vec3	raydir;
+	t_vec3	normal;
+	t_vec3	point;
+	t_vec3	color;
+	double	t;
+}	t_hit;
+
 void	quit(t_engine *engine);
 
 // RAYTRACING
 void	basic_raytracer(t_engine *engine);
-int		raytrace(t_scene scene, t_vec3 raydir, t_vec2 sp);
+void	raytrace(t_scene scene, t_hit *hit);
 
 // SCENE PARSING
 bool	parse_scene(t_engine *engine, char *path);

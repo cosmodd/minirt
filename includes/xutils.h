@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:07:46 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/05 11:02:02 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 14:15:30 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	destroy_image(t_image image);
 void	put_pixel(t_image image, int x, int y, int color);
 void	put_pixel_canvas(t_image image, int x, int y, int color);
 int		get_pixel(t_image image, int x, int y);
-int		create_rgba(int r, int g, int b, int a);
+int		rgba(int r, int g, int b, int a);
 
 #endif

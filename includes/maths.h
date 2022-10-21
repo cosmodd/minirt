@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 11:00:11 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:37:27 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ typedef struct s_mat4
 	double	m[4][4];
 }	t_mat4;
 
-t_mat4	mat4_lookat(t_vec3 position, t_vec3 direction);
+t_mat4	mat4_lookat(t_vec3 from, t_vec3 to);
 t_vec2	vec2_add(t_vec2 a, t_vec2 b);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+t_vec3	vec3_from_rgba(int color);
+int		vec3_to_rgba(t_vec3 color);
 double	vec2_cross(t_vec2 a, t_vec2 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 double	vec2_dot(t_vec2 a, t_vec2 b);

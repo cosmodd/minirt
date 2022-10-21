@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:52:38 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 11:00:19 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/20 17:25:08 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ double	intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane)
 		if (t > 0)
 			return (t);
 	}
-	return (INF);
+	return (-1);
 }
