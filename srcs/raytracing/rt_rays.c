@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_rays.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 17:39:25 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/22 11:15:14 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static void	compute_lighting(t_scene scene, t_hit *hit)
 		vecto_l = vec3_sub(light.position, hit->point);
 		ndl = vec3_dot(hit->normal, vecto_l);
 		if (ndl > 0 && !in_shadow(hit->point, light, scene))
-			i += light.intensity * \
-				(ndl / (vec3_magnitude(hit->normal) * vec3_magnitude(vecto_l)));
+			i += light.intensity * ndl / (vec3_magnitude(hit->normal) * vec3_magnitude(vecto_l));
 		light_node = light_node->next;
 	}
 	i = fmin(1, i);
@@ -79,7 +78,7 @@ static void	get_coll_color(t_scene scene, t_collideable coll, t_hit *hit)
 	else if (coll.type == SPHERE)
 		hit->normal = vec3_sub(hit->point, coll.sphere->position);
 	else if (coll.type == CYLINDER)
-		return ((void)(hit->color = coll.cylinder->color));
+		hit->normal = coll.cylinder->normal;
 	hit->normal = vec3_normalize(hit->normal);
 	compute_lighting(scene, hit);
 }

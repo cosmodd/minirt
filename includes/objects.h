@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/17 09:21:27 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:24:58 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_cylinder
 	double	diameter;
 	double	height;
 	t_vec3	color;
+	t_vec3	normal;
 }	t_cylinder;
 
 /* Other */

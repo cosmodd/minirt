@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 13:05:37 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/22 14:35:35 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_collideable	*new_cylinder_col(t_vec3 position, t_vec3 direction, double diamet
 	return (collideable);
 }
 
-static double	intersect_disk(t_vec3 camera, t_vec3 r, t_vec3 p, t_vec3 d, double rad)
+static double	intersect_disk(t_vec3 camera, t_vec3 r, t_vec3 p, t_vec3 d, t_cylinder *cyl)
 {
 	t_vec3	co;
 	t_vec3	inter;
@@ -66,8 +66,12 @@ static double	intersect_disk(t_vec3 camera, t_vec3 r, t_vec3 p, t_vec3 d, double
 			return (-1);
 		inter = vec3_add(camera, vec3_scalar(r, t));
 		v = vec3_sub(inter, p);
-		if (vec3_dot(v, v) <= rad * rad)
+		if (sqrt(vec3_dot(v, v)) <= cyl->radius) {
+			cyl->normal = d;
+			// printf("n: %f %f %f\n", cyl->normal.x, cyl->normal.y, cyl->normal.z);
+			// printf("sqrt(vdv): %f\n cyl->r: %f\n\n", sqrt(vec3_dot(v,v)), cyl->radius);
 			return (t);
+		}
 	}
 	return (-1);
 }
@@ -81,11 +85,14 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	double	disc;
 	double	t[3];
 
-	c_h[0] = vec3_add(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
-	c_h[1] = vec3_sub(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
-	h[0] = vec3_sub(c_h[0], c_h[1]);
+	c_h[0] = vec3_sub(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
+	c_h[1] = vec3_add(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
+	//printf("c: %f | %f | %f\nh: %f | %f | %f\n\n", c_h[0].x, c_h[0].y, c_h[0].z, c_h[1].x, c_h[1].y, c_h[1].z);
+	//h[0] = vec3_sub(c_h[0], c_h[1]);
+	h[0] = vec3_sub(c_h[1], c_h[0]);
 	h[1] = vec3_normalize(h[0]);
-	w = vec3_sub(camera, c_h[1]);
+	//printf("h[1]: %f | %f | %f\ncyl->dir: %f | %f | %f\n\n", h[1].x, h[1].y, h[1].z, cyl->direction.x, cyl->direction.y, cyl->direction.z);
+	w = vec3_sub(camera, c_h[0]);
 
 	abc.x = vec3_dot(r, r) - pow(vec3_dot(r, h[1]), 2);
 	abc.y = 2 * (vec3_dot(r, w) - vec3_dot(r, h[1]) * vec3_dot(w, h[1]));
@@ -97,17 +104,26 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	if (disc < 1e-6)
 		return (-1);
 	if (disc == 0)
-		return (t[0]);
+	 	return (t[0]);
 	if (t[0] < 0 || t[1] < 0)
 		return (fmax(t[0], t[1]));
 	
 	t[2] = fmin(t[0], t[1]);
 
 	t_vec3	inter = vec3_add(camera, vec3_scalar(r, t[2]));
-	if (vec3_dot(vec3_sub(inter, c_h[1]), h[0]) < 0)
-		return (intersect_disk(camera, r, c_h[1], h[1], cyl->radius));
-	if (vec3_dot(vec3_sub(inter, c_h[0]), h[0]) > 0)
-		return (intersect_disk(camera, r, c_h[0], vec3_scalar(h[1], -1), cyl->radius));
+
+	// NORMAL - cylinder side
+	t_vec3	centroid = vec3_scalar(cyl->direction, vec3_magnitude(vec3_sub(inter, c_h[0])));
+	t_vec3	q = vec3_add(c_h[0], centroid);
+	cyl->normal = vec3_sub(inter,q); 
+
+	// NORMAL - cylinder caps
+	// double inter_height = vec3_magnitude(centroid);
+	// //printf("%f\n", inter_height);
+	// if (inter_height < 0)
+	// 	return (intersect_disk(camera, r, c_h[0], vec3_scalar(h[1], -1), cyl));
+	// if (inter_height > cyl->height)
+	// 	return (intersect_disk(camera, r, c_h[1], h[1], cyl));
 
 	return (t[2]);
 }
