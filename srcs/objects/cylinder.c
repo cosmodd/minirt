@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/24 11:33:42 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:26:14 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,12 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	t_vec3	q = vec3_add(cyl->position, centroid);
 	cyl->normal = vec3_sub(inter,q); 
 
-	// NORMAL - cylinder caps
-	double inter_height = vec3_magnitude(centroid);
-	if (inter_height * 2.0 > cyl->height)
-		return (intersect_disk(camera, r, c_h[(dists[0] > dists[1])], h[1], cyl));
+	// Lint - C * h[0]
+	double inter_height =  vec3_dot(vec3_sub(inter, c_h[0]), h[0]);
+	if (inter_height < 0)
+		return (intersect_disk(camera, r, c_h[0], h[1], cyl));
+	if (inter_height >  pow(cyl->height, 2))
+		return (intersect_disk(camera, r, c_h[1], h[1], cyl));
 
 	return (t[2]);
 }
