@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 08:48:39 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/25 13:22:58 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	quit(t_engine *engine)
 static void	draw(t_engine *engine)
 {
 	static const int	crosshair_size = 10;
+	static char			to_print[1024];
+	
 	basic_raytracer(engine);
 	for (int i = -crosshair_size / 2; i < crosshair_size / 2; i++)
 	{
@@ -131,6 +133,16 @@ static void	draw(t_engine *engine)
 		put_pixel(engine->frame, vpos.x, vpos.y, vp ^ 0xFFFFFF);
 	}
 	mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+	sprintf(to_print, "Position: (%f, %f, %f)\n",
+		engine->scene.camera.position.x,
+		engine->scene.camera.position.y,
+		engine->scene.camera.position.z);
+	mlx_string_put(engine->mlx, engine->win, 10, 20, 0xFFFFFF, to_print);
+	sprintf(to_print, "Direction: (%f, %f, %f)\n",
+		engine->scene.camera.direction.x,
+		engine->scene.camera.direction.y,
+		engine->scene.camera.direction.z);
+	mlx_string_put(engine->mlx, engine->win, 10, 40, 0xFFFFFF, to_print);
 }
 
 int	key_hook(int keycode, t_engine *engine)
@@ -152,7 +164,10 @@ int	key_hook(int keycode, t_engine *engine)
 	}
 	if (keycode == K_A || keycode == K_D)
 	{
-		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
+		t_vec3	world_up = (t_vec3){0, 1, 0};
+		if (fabs(engine->scene.camera.direction.y) == 1)
+			world_up = (t_vec3){0, 0, -engine->scene.camera.direction.y};
+		t_vec3	right = vec3_cross(engine->scene.camera.direction, world_up);
 		t_vec3	dir = vec3_scalar(right, (keycode == K_D) * 2 - 1);
 
 		engine->scene.camera.position = vec3_add(engine->scene.camera.position, dir);
@@ -164,7 +179,10 @@ int	key_hook(int keycode, t_engine *engine)
 	}
 	if (keycode == SPACE || keycode == CONTROL_LEFT)
 	{
-		t_vec3	right = vec3_cross(engine->scene.camera.direction, (t_vec3){0, 1, 0});
+		t_vec3	world_up = (t_vec3){0, 1, 0};
+		if (fabs(engine->scene.camera.direction.y) == 1)
+			world_up = (t_vec3){0, 0, -engine->scene.camera.direction.y};
+		t_vec3	right = vec3_cross(engine->scene.camera.direction, world_up);
 		t_vec3	up = vec3_normalize(vec3_cross(engine->scene.camera.direction, right));
 		t_vec3	dir = vec3_normalize(vec3_scalar(up, (keycode == CONTROL_LEFT) * 2 - 1));
 

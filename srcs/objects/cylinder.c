@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/25 11:26:14 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:33:40 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	if (cyl == NULL)
 		return (NULL);
 	cyl->position = position;
-	cyl->direction = direction;
+	cyl->direction = vec3_normalize(direction);
 	cyl->radius = radius;
 	cyl->diameter = 2 * radius;
 	cyl->height = height;
@@ -57,18 +57,19 @@ static double	intersect_disk(t_vec3 camera, t_vec3 r, t_vec3 p, t_vec3 d, t_cyli
 	double	denom;
 	double	t;
 
-	denom = vec3_dot(d, r);
+	denom = vec3_dot(r, d);
 	if (fabs(denom) > 1e-6)
 	{
 		co = vec3_sub(p, camera);
 		t = vec3_dot(co, d) / denom;
+		//p->dir = inter - p
 		if (t < 0)
 			return (-1);
 		inter = vec3_add(camera, vec3_scalar(r, t));
 		v = vec3_sub(inter, p);
 		if (vec3_dot(v, v) <= cyl->radius * cyl->radius) {
 			cyl->normal = d;
-			// printf("n: %f %f %f\n", cyl->normal.x, cyl->normal.y, cyl->normal.z);
+			//printf("n: %f %f %f\n", cyl->normal.x, cyl->normal.y, cyl->normal.z);
 			// printf("sqrt(vdv): %f\n cyl->r: %f\n\n", sqrt(vec3_dot(v,v)), cyl->radius);
 			return (t);
 		}
@@ -100,13 +101,6 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	t[0] = (-abc.y + sqrt(disc)) / (2 * abc.x);
 	t[1] = (-abc.y - sqrt(disc)) / (2 * abc.x);
 
-	if (disc < 1e-6)
-		return (-1);
-	if (disc == 0)
-	 	return (t[0]); 
-	if (t[0] < 0 || t[1] < 0)
-		return (fmax(t[0], t[1]));
-	
 	t[2] = fmin(t[0], t[1]);
 
 	t_vec3	inter = vec3_add(camera, vec3_scalar(r, t[2]));
@@ -123,7 +117,7 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 	// Lint - C * h[0]
 	double inter_height =  vec3_dot(vec3_sub(inter, c_h[0]), h[0]);
 	if (inter_height < 0)
-		return (intersect_disk(camera, r, c_h[0], h[1], cyl));
+		return (intersect_disk(camera, r, c_h[0], vec3_scalar(h[1], -1), cyl));
 	if (inter_height >  pow(cyl->height, 2))
 		return (intersect_disk(camera, r, c_h[1], h[1], cyl));
 
