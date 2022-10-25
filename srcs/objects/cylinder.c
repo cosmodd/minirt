@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/25 14:33:40 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:33:40by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 
 	c_h[0] = vec3_sub(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
 	c_h[1] = vec3_add(cyl->position, vec3_scalar(cyl->direction, cyl->height / 2.0));
-	//printf("c: %f | %f | %f\nh: %f | %f | %f\n\n", c_h[0].x, c_h[0].y, c_h[0].z, c_h[1].x, c_h[1].y, c_h[1].z);
 	h[0] = vec3_sub(c_h[1], c_h[0]);
 	h[1] = vec3_normalize(h[0]);
-	//printf("h[1]: %f | %f | %f\ncyl->dir: %f | %f | %f\n\n", h[1].x, h[1].y, h[1].z, cyl->direction.x, cyl->direction.y, cyl->direction.z);
 	w = vec3_sub(camera, c_h[0]);
 
 	abc.x = vec3_dot(r, r) - pow(vec3_dot(r, h[1]), 2);
@@ -105,16 +103,12 @@ double	intersect_cylinder(t_vec3 camera, t_vec3 r, t_cylinder *cyl)
 
 	t_vec3	inter = vec3_add(camera, vec3_scalar(r, t[2]));
 	
-	double	dists[2];
-	dists[0] = vec3_magnitude(vec3_sub(inter, c_h[0]));
-	dists[1] = vec3_magnitude(vec3_sub(inter, c_h[1]));
-
 	// NORMAL - cylinder side
-	t_vec3	centroid = vec3_scalar(vec3_scalar(cyl->direction, (dists[0] > dists[1]) * 2 - 1), vec3_magnitude(vec3_sub(inter, cyl->position)));
-	t_vec3	q = vec3_add(cyl->position, centroid);
+	t_vec3	centroid = vec3_scalar(cyl->direction, vec3_magnitude(vec3_sub(inter, c_h[0])));
+	t_vec3	q = vec3_add(c_h[0], centroid);
 	cyl->normal = vec3_sub(inter,q); 
 
-	// Lint - C * h[0]
+	// Cylinder caps
 	double inter_height =  vec3_dot(vec3_sub(inter, c_h[0]), h[0]);
 	if (inter_height < 0)
 		return (intersect_disk(camera, r, c_h[0], vec3_scalar(h[1], -1), cyl));
