@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/25 15:18:43 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/26 14:09:18 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
 	sphere->position = position;
 	sphere->radius = radius;
 	sphere->color = color;
+	sphere->specular = 1000;
 	return (sphere);
 }
 
