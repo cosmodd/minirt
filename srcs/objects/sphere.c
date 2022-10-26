@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 13:07:23 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:18:43 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,7 @@ t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color)
 	return (collideable);
 }
 
-/**
- * @brief Finds the first point of intersection to a sphere.
- *
- * @param camera Position of the camera.
- * @param raydir Direction of the ray.
- * @param sphere Sphere object.
- * @return double - Distance to the intersection with the sphere.
- */
-double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
+void	intersect_sphere(t_hit *hit, t_sphere *sphere)
 {
 	double	r;
 	t_vec3	vec_co;
@@ -71,16 +63,20 @@ double	intersect_sphere(t_vec3 camera, t_vec3 raydir, t_sphere *sphere)
 	double	t[2];
 
 	r = sphere->radius;
-	vec_co = vec3_sub(camera, sphere->position);
-	abc.x = vec3_dot(raydir, raydir);
-	abc.y = 2.0 * vec3_dot(raydir, vec_co);
+	vec_co = vec3_sub(hit->pos, sphere->position);
+	abc.x = vec3_dot(hit->raydir, hit->raydir);
+	abc.y = 2.0 * vec3_dot(hit->raydir, vec_co);
 	abc.z = vec3_dot(vec_co, vec_co) - r * r;
 	discriminant = abc.y * abc.y - 4.0 * abc.x * abc.z;
 	if (discriminant < 1e-6)
-		return (-1);
+		return ((void)(hit->t = -1));
 	t[0] = (-abc.y - sqrt(discriminant)) / (2.0 * abc.x);
 	t[1] = (-abc.y + sqrt(discriminant)) / (2.0 * abc.x);
 	if (t[0] < 0 || t[1] < 0)
-		return (fmax(t[0], t[1]));
-	return (fmin(t[0], t[1]));
+		hit->t = fmax(t[0], t[1]);
+	else
+		hit->t = fmin(t[0], t[1]);
+	hit->collided->normal = vec3_sub(
+		vec3_add(vec3_scalar(hit->raydir, hit->t), hit->pos),
+		sphere->position);
 }

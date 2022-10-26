@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:52:38 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 17:25:08 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:19:42 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,16 @@ t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color)
 	return (collideable);
 }
 
-/**
- * @brief Finds the first point of intersection to a plane.
- *
- * @param camera Position of the camera.
- * @param raydir Direction of the ray.
- * @param plane Plane object.
- * @return double - Distance to the intersection.
- */
-double	intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane)
+void	intersect_plane(t_hit *hit, t_plane *plane)
 {
 	t_vec3	co;
 	double	denom;
-	double	t;
 
-	denom = vec3_dot(raydir, plane->direction);
-	if (fabs(denom) > 0)
-	{
-		co = vec3_sub(plane->position, camera);
-		t = vec3_dot(co, plane->direction) / denom;
-		if (t > 0)
-			return (t);
-	}
-	return (-1);
+	hit->t = -1;
+	denom = vec3_dot(hit->raydir, plane->direction);
+	if (fabs(denom) <= THRESHOLD)
+		return ;
+	co = vec3_sub(plane->position, hit->pos);
+	hit->t = vec3_dot(co, plane->direction) / denom;
+	hit->collided->normal = plane->direction;
 }

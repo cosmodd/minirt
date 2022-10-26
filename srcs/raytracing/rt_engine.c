@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 17:30:43 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/24 16:20:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	basic_raytracer(t_engine *engine)
 	int		y;
 
 	hit = (t_hit){0};
+	hit.pos = engine->scene.camera.position;
 	y = -WIN_HEIGHT / 2;
 	while (y < WIN_HEIGHT / 2)
 	{

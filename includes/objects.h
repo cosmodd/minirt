@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/17 09:21:27 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:06:50 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_cylinder
 typedef struct s_collideable
 {
 	t_object	type;
-	double		(*intersect)();
+	void		(*intersect)();
 	union {
 		void		*ptr;
 		t_sphere	*sphere;
@@ -83,7 +83,19 @@ typedef struct s_collideable
 		t_cylinder	*cylinder;
 	};
 	t_vec3		color;
+	t_vec3		normal;
 }	t_collideable;
+
+typedef struct s_hit
+{
+	t_collideable	*collided;
+	t_vec3			pos;
+	t_vec3			raydir;
+	t_vec3			normal;
+	t_vec3			point;
+	t_vec3			color;
+	double			t;
+}	t_hit;
 
 typedef struct s_scene
 {
@@ -97,11 +109,11 @@ t_light			*new_light_point(t_vec3 pos, double intensity, t_vec3 color);
 void			free_collideable(void *ptr);
 t_plane			*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color);
 t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color);
-double			intersect_plane(t_vec3 camera, t_vec3 raydir, t_plane *plane);
+void			intersect_plane(t_hit *hit, t_plane *plane);
 t_sphere		*new_sphere(t_vec3 position, double radius, t_vec3 color);
 t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color);
-double			intersect_sphere(t_vec3 cam, t_vec3 raydir, t_sphere *sphere);
+void			intersect_sphere(t_hit *hit, t_sphere *sphere);
 t_cylinder 		*new_cylinder(t_vec3 position, t_vec3 direction, double radius, double height, t_vec3 color);
 t_collideable	*new_cylinder_col(t_vec3 position, t_vec3 direction, double diameter, double height, t_vec3 color);
-double			intersect_cylinder(t_vec3 camera, t_vec3 raydir, t_cylinder *cyl);
+void			intersect_cylinder(t_hit *hit, t_cylinder *cyl);
 #endif

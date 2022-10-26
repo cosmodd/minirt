@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 17:23:10 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/24 16:25:34 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ typedef struct s_engine
 	double	vh;
 	double	vp_dist;
 }	t_engine;
-
-typedef struct s_hit
-{
-	t_vec3	raydir;
-	t_vec3	normal;
-	t_vec3	point;
-	t_vec3	color;
-	double	t;
-}	t_hit;
 
 void	quit(t_engine *engine);
 

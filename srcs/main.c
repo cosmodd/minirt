@@ -6,13 +6,13 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/20 08:48:39 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/24 14:37:29 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_vec3(t_vec3 v)
+/*void	print_vec3 (t_vec3 v)
 {
 	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
 }
@@ -99,7 +99,7 @@ static void	print_scene(t_scene *scene)
 	printf("------------------------\n");
 	print_lights(scene);
 	print_collideables(scene);
-}
+} */
 
 void	quit(t_engine *engine)
 {
@@ -114,6 +114,8 @@ void	quit(t_engine *engine)
 static void	draw(t_engine *engine)
 {
 	static const int	crosshair_size = 10;
+	static char			display_text[1024];
+
 	basic_raytracer(engine);
 	for (int i = -crosshair_size / 2; i < crosshair_size / 2; i++)
 	{
@@ -131,6 +133,10 @@ static void	draw(t_engine *engine)
 		put_pixel(engine->frame, vpos.x, vpos.y, vp ^ 0xFFFFFF);
 	}
 	mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
+	sprintf(display_text, "Direction: (%f, %f, %f)", engine->scene.camera.direction.x, engine->scene.camera.direction.y, engine->scene.camera.direction.z);
+	mlx_string_put(engine->mlx, engine->win, 10, 20, 0xFFFFFF, display_text);
+	sprintf(display_text, "Position: (%f, %f, %f)", engine->scene.camera.position.x, engine->scene.camera.position.y, engine->scene.camera.position.z);
+	mlx_string_put(engine->mlx, engine->win, 10, 40, 0xFFFFFF, display_text);
 }
 
 int	key_hook(int keycode, t_engine *engine)
@@ -225,7 +231,7 @@ int	main(int ac, char **av)
 	parse_scene(&engine, av[1]);
 	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
 
-	print_scene(&engine.scene);
+	// print_scene(&engine.scene);
 
 	draw(&engine);
 	mlx_do_key_autorepeaton(engine.mlx);
