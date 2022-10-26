@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 12:13:40 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/26 14:35:12 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	cyl->diameter = 2 * radius;
 	cyl->height = height;
 	cyl->color = color;
+	cyl->specular = 1000;
 	return (cyl);
 }
 
@@ -107,4 +108,6 @@ void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 		intersect_disk(hit, c_h[0], h[1], c->radius);
 	else if (vec3_dot(vec3_sub(hit->point, c_h[0]), h[0]) > vec3_dot2(h[0]))
 		intersect_disk(hit, c_h[1], vec3_scalar(h[1], -1), c->radius);
+
+	hit->collided->specular = hit->collided->cylinder->specular;
 }

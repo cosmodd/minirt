@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:52:38 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/25 15:19:42 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/26 14:35:29 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_plane	*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color)
 	plane->position = position;
 	plane->direction = direction;
 	plane->color = color;
+	plane->specular = -1;
 	return (plane);
 }
 
@@ -66,4 +67,5 @@ void	intersect_plane(t_hit *hit, t_plane *plane)
 	co = vec3_sub(plane->position, hit->pos);
 	hit->t = vec3_dot(co, plane->direction) / denom;
 	hit->collided->normal = plane->direction;
+	hit->collided->specular = hit->collided->plane->specular;
 }
