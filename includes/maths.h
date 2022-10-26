@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:21:45 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/20 16:37:27 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/26 09:12:17 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int		vec3_to_rgba(t_vec3 color);
 double	vec2_cross(t_vec2 a, t_vec2 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 double	vec2_dot(t_vec2 a, t_vec2 b);
+double	vec2_dot2(t_vec2 a);
 double	vec3_dot(t_vec3 a, t_vec3 b);
+double	vec3_dot2(t_vec3 a);
 double	vec2_magnitude(t_vec2 a);
 double	vec3_magnitude(t_vec3 a);
 t_vec3	vec3_mat4(t_vec3 vec, t_mat4 mat);
