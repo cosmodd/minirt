@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:11:09 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 14:47:16 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:04:00 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	compute_lighting(t_scene scene, t_hit *hit)
 		light = *(t_light *)(light_node->content);
 		vecto_l = vec3_sub(light.position, hit->point);
 		ndl = vec3_dot(hit->collided->normal, vecto_l);
-		if (!in_shadow(hit->point, light, scene)) {
+		//if (!in_shadow(hit->point, light, scene)) {
+		if (1){
 			if (ndl > 0)
 				i += light.intensity * ndl / (vec3_magnitude(hit->collided->normal) * vec3_magnitude(vecto_l));
 			if (hit->collided->specular != -1)
