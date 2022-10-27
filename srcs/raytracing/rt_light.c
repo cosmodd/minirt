@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rt_light.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:11:09 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 15:04:00 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/27 08:44:12 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 static double specular_reflection(double intensity, t_hit *hit, double ndl, t_vec3 vecto_l)
 {
 	t_vec3 R;
@@ -25,6 +26,22 @@ static double specular_reflection(double intensity, t_hit *hit, double ndl, t_ve
 			pow(rdv / (vec3_magnitude(R) * vec3_magnitude(hit->raydir)), \
 				hit->collided->specular));
 	return (0);
+}
+
+bool	in_shadow(t_vec3 point, t_light light, t_scene scene)
+{
+	t_hit	hit;
+	t_vec3	point_to_light;
+	double	dist_to_light;
+
+	hit = (t_hit){0};
+	hit.pos = point;
+	point_to_light = vec3_sub(light.position, point);
+	dist_to_light = vec3_magnitude(point_to_light);
+	point_to_light = vec3_normalize(point_to_light);
+	hit.raydir = point_to_light;
+	ray(&hit, &scene);
+	return (hit.t > THRESHOLD && hit.t < dist_to_light);
 }
 
 void	compute_lighting(t_scene scene, t_hit *hit)
@@ -43,7 +60,7 @@ void	compute_lighting(t_scene scene, t_hit *hit)
 		light = *(t_light *)(light_node->content);
 		vecto_l = vec3_sub(light.position, hit->point);
 		ndl = vec3_dot(hit->collided->normal, vecto_l);
-		//if (!in_shadow(hit->point, light, scene)) {
+		// if (!in_shadow(hit->point, light, scene)) {
 		if (1){
 			if (ndl > 0)
 				i += light.intensity * ndl / (vec3_magnitude(hit->collided->normal) * vec3_magnitude(vecto_l));
