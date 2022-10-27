@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/26 14:47:56 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:56:57 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_engine
 void	quit(t_engine *engine);
 
 // RAYTRACING
+void	ray(t_hit *hit, t_scene *scene);
 void	basic_raytracer(t_engine *engine);
 void	raytrace(t_scene scene, t_hit *hit);
 void	compute_lighting(t_scene scene, t_hit *hit);
