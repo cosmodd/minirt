@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 14:35:12 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:05:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	cyl->diameter = 2 * radius;
 	cyl->height = height;
 	cyl->color = color;
-	cyl->specular = 1000;
+	cyl->specular = 10;
 	return (cyl);
 }
 
@@ -98,9 +98,9 @@ void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 	t[0] = (-abc[1] - sqrt(disc)) / (2 * abc[0]);
 	t[1] = (-abc[1] + sqrt(disc)) / (2 * abc[0]);
 	if (t[0] <= 0 || t[1] <= 0)
-		return ((void)(hit->t = fmax(t[0], t[1])));
-
-	hit->t = fmin(t[0], t[1]);
+		hit->t = fmax(t[0], t[1]);
+	else
+		hit->t = fmin(t[0], t[1]);
 	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, hit->t));
 	hit->collided->normal = vec3_sub(hit->point, vec3_add(c_h[0], vec3_scalar(h[1], vec3_dot(vec3_sub(hit->point, c_h[0]), h[1]))));
 
