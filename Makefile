@@ -25,6 +25,7 @@ SRCS	=	srcs/logging.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
 			srcs/raytracing/rt_light.c \
+			srcs/raytracing/rt_shadow.c \
 			srcs/utils/str_split.c \
 			srcs/utils/strl_free.c \
 			srcs/utils/strl_len.c \
