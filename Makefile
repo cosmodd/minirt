@@ -40,19 +40,25 @@ OBJS	=	$(SRCS:.c=.o)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra
-CFLAGS		+=	-Ofast
+CFLAGS		+=	#-Ofast
 
 NAME		=	minirt
 
-INCLUDES	= -Iincludes
-INCLUDES	+= -Ilibs/minilibx
-INCLUDES	+= -Ilibs/libft/includes
+INCLUDES	= -Iincludes -Ilibs/libft/includes
+LIBS		= -Llibs/libft -lft
 
-LIBS		= -Llibs/minilibx -lmlx
-LIBS		+= -Llibs/libft -lft
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+	INCLUDES	+= -Ilibs/minilibx
+	LIBS		+= -Llibs/minilibx -lmlx
+	LIBS		+= -framework OpenGL -framework AppKit
+else
+	INCLUDES	+= -Ilibs/minilibx
+	LIBS		+= -L/usr/lib -lmlx -L/usr/lib/x86_64-linux-gnu -lXext -lX11 -lm -lbsd 
+endif
 
-OBJ_OPTS	= $(INCLUDES) $(CFLAGS)
-BIN_OPTS	= $(LIBS) $(INCLUDES) -framework OpenGL -framework AppKit
+OBJ_OPTS	= $(CFLAGS) $(INCLUDES)
+BIN_OPTS	= $(LIBS)
 
 ################################################################################
 #  MAKEFILE VISUALS                                                            #
@@ -85,15 +91,14 @@ DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 ################################################################################
 
 %.o: %.c
-	@make -sC ./libs/libft
-	@make -sC ./libs/minilibx
-	@$(CC) -g $(OBJ_OPTS) -c $< -o $@
+	@make -sC libs/libft
+	@$(CC) $(OBJ_OPTS) -g -c $< -o $@
 	@echo -n '$(REDO)$(INFO) $(notdir $@) $(NOCOL)'
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(BIN_OPTS) $^ -o $(NAME)
+	@$(CC)  $^ $(BIN_OPTS) -o $(NAME)
 	@echo '$(REDO)$(VALID) $@ $(NOCOL)'
 
 debug: fclean
@@ -110,16 +115,13 @@ fclean: clean
 re: fclean all
 
 libs-clean:
-	@make -sC ./libs/libft clean
-	@make -sC ./libs/minilibx clean
+	@make -sC libs/libft clean
 
 libs-fclean:
-	@make -sC ./libs/libft fclean
-	@make -sC ./libs/minilibx clean
+	@make -sC libs/libft fclean
 
 libs-re:
-	@make -sC ./libs/libft re
-	@make -sC ./libs/minilibx re
+	@make -sC libs/libft re
 
 run: $(NAME)
 	@./$(NAME) scenes/subject.rt
