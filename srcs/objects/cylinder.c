@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 03:04:47 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/29 04:09:54 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	cyl->height = height;
 	cyl->color = color;
 	cyl->specular = 10;
-	cyl->reflection = 0.5f;
+	cyl->reflection = -1;
 	return (cyl);
 }
 
@@ -111,4 +111,5 @@ void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 		intersect_disk(hit, c_h[1], vec3_scalar(h[1], -1), c->radius);
 
 	hit->collided->specular = hit->collided->cylinder->specular;
+	hit->collided->reflection = hit->collided->cylinder->reflection;
 }

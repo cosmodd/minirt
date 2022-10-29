@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 03:04:26 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/29 04:08:36 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_collideable
 	t_vec3		color;
 	t_vec3		normal;
 	double		specular;
+	double		reflection;
 }	t_collideable;
 
 typedef struct s_hit

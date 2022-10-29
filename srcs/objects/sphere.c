@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/29 03:05:04 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/29 04:09:40 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
 	sphere->radius = radius;
 	sphere->color = color;
 	sphere->specular = 10;
-	sphere->reflection = 0.2f;
+	sphere->reflection = -1;
 	return (sphere);
 }
 
@@ -82,4 +82,5 @@ void	intersect_sphere(t_hit *hit, t_sphere *sphere)
 		vec3_add(vec3_scalar(hit->raydir, hit->t), hit->pos),
 		sphere->position);
 	hit->collided->specular = hit->collided->sphere->specular;
+	hit->collided->reflection = hit->collided->sphere->reflection;
 }
