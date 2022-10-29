@@ -28,6 +28,7 @@
 // OTHERS
 # include "xutils.h"
 # include "keys.h"
+# include "mlx_keycodes.h"
 # include "maths.h"
 # include "objects.h"
 # include "logging.h"
