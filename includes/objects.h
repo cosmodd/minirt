@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 14:31:06 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/29 03:04:26 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_sphere
 	double	radius;
 	t_vec3	color;
 	double	specular;
+	double	reflection;
 }	t_sphere;
 
 typedef struct s_plane
@@ -61,6 +62,7 @@ typedef struct s_plane
 	t_vec3	direction;
 	t_vec3	color;
 	double	specular;
+	double	reflection;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -72,6 +74,7 @@ typedef struct s_cylinder
 	double	height;
 	t_vec3	color;
 	double	specular;
+	double	reflection;
 }	t_cylinder;
 
 /* Other */

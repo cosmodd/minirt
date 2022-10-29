@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/26 16:54:43 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/29 03:05:04 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
 	sphere->radius = radius;
 	sphere->color = color;
 	sphere->specular = 10;
+	sphere->reflection = 0.2f;
 	return (sphere);
 }
 
@@ -69,7 +70,7 @@ void	intersect_sphere(t_hit *hit, t_sphere *sphere)
 	abc.y = 2.0 * vec3_dot(hit->raydir, vec_co);
 	abc.z = vec3_dot(vec_co, vec_co) - r * r;
 	discriminant = abc.y * abc.y - 4.0 * abc.x * abc.z;
-	if (discriminant < 1e-6)
+	if (discriminant < THRESHOLD)
 		return ((void)(hit->t = -1));
 	t[0] = (-abc.y - sqrt(discriminant)) / (2.0 * abc.x);
 	t[1] = (-abc.y + sqrt(discriminant)) / (2.0 * abc.x);

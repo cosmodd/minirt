@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/26 17:05:10 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/29 03:04:47 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	cyl->height = height;
 	cyl->color = color;
 	cyl->specular = 10;
+	cyl->reflection = 0.5f;
 	return (cyl);
 }
 
