@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_engine.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/24 16:20:10 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/10/29 01:07:41 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static t_vec3	generate_raydir(t_engine *engine, t_vec2 pixel)
 void	basic_raytracer(t_engine *engine)
 {
 	t_hit	hit;
-	double	color;
 	int		x;
 	int		y;
 
