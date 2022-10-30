@@ -40,7 +40,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra
-CFLAGS		+=	#-Ofast
+CFLAGS		+=	-Ofast
 
 NAME		=	minirt
 
