@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:20:54 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 01:07:41 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/30 13:06:53 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ void	basic_raytracer(t_engine *engine)
 	int		y;
 
 	hit = (t_hit){0};
-	hit.pos = engine->scene.camera.position;
+	hit.collided = NULL;
 	y = -WIN_HEIGHT / 2;
 	while (y < WIN_HEIGHT / 2)
 	{
 		x = -WIN_WIDTH / 2;
 		while (x < WIN_WIDTH / 2)
 		{
+			hit.pos = engine->scene.camera.position;
 			hit.raydir = generate_raydir(engine, (t_vec2){x, y});
 			hit.raydir = vec3_mat4(hit.raydir, engine->scene.camera.view);
-			raytrace(engine->scene, &hit);
+			raytrace(engine->scene, &hit, REC_LIMIT);
 			put_pixel_canvas(engine->frame, x, y, vec3_to_rgba(hit.color));
 			x++;
 		}

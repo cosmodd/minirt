@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 04:09:54 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/30 12:47:54 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_cylinder	*new_cylinder(t_vec3 position, t_vec3 direction, double radius, doubl
 	cyl->diameter = 2 * radius;
 	cyl->height = height;
 	cyl->color = color;
-	cyl->specular = 10;
-	cyl->reflection = -1;
+	cyl->specular = -1;
+	cyl->reflection = 0;
 	return (cyl);
 }
 

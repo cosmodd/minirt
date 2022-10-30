@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:18:23 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 02:22:36 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/30 11:25:32 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	ray_shadow(t_hit *hit, t_scene *scene, t_collideable *o_p)
 	while (current != NULL)
 	{
 		hit->collided = (t_collideable *)current->content;
-		if (hit->collided != o_p) {
+		if (hit->collided != o_p)
+		{
 			hit->collided->intersect(hit, hit->collided->ptr);
 			if (hit->t > THRESHOLD && hit->t < min_dist)
 				min_dist = hit->t;

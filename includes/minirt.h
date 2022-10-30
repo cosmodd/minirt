@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/29 02:11:47 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/30 13:47:25 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@
 # define WIN_HEIGHT		(400)
 # define FOV			120
 # define THRESHOLD		1e-6
-# define VOID_COLOR		0x000000
+# define VOID_COLOR		0x033f63
+# define REC_LIMIT		1
 
 typedef struct s_engine
 {
@@ -55,9 +56,9 @@ typedef struct s_engine
 void	quit(t_engine *engine);
 
 // RAYTRACING
-void	ray(t_hit *hit, t_scene *scene);
+void	ray(t_hit *hit, t_scene *scene, t_collideable *o_p, size_t rec_limit);
 void	basic_raytracer(t_engine *engine);
-void	raytrace(t_scene scene, t_hit *hit);
+void	raytrace(t_scene scene, t_hit *hit, size_t rec_limit);
 void	compute_lighting(t_scene scene, t_hit *hit);
 bool	in_shadow(t_vec3 point, t_light light, t_scene scene, t_collideable *o_p);
 
