@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/30 13:47:25 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:36:34 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@
 # include "utils.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(400)
-# define WIN_HEIGHT		(400)
+# define WIN_WIDTH		(1200)
+# define WIN_HEIGHT		(1200)
 # define FOV			120
 # define THRESHOLD		1e-6
-# define VOID_COLOR		0x033f63
-# define REC_LIMIT		1
+# define VOID_COLOR		0x87ceeb
+# define REC_LIMIT		10
 
 typedef struct s_engine
 {

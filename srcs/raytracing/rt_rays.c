@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/30 13:57:02 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:35:09 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ray(t_hit *hit, t_scene *scene, t_collideable *o_p, size_t rec_limit)
 	hit->t = min_dist;
 	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, min_dist));
 	hit->collided = closest;
-	hit->color = closest->color;
+	hit->color = (t_vec3){0};
 }
 
 void	raytrace(t_scene scene, t_hit *hit, size_t rec_limit)
