@@ -6,102 +6,13 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 09:55:31 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:09:45 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*void	print_vec3 (t_vec3 v)
-{
-	printf("(%10.5f, %10.5f, %10.5f)\n", v.x, v.y, v.z);
-}
-
-static char	*get_coll_type(t_object type)
-{
-	if (type == SPHERE)
-		return ("⚪️ Sphere");
-	else if (type == PLANE)
-		return ("⬜️ Plane");
-	else if (type == CYLINDER)
-		return ("💊 Cylinder");
-	return ("❓ Unknown");
-}
-
-static void	print_collideables(t_scene *scene)
-{
-	t_list			*lst;
-	t_collideable	*coll;
-
-	lst = scene->collideables;
-	while (lst != NULL)
-	{
-		coll = lst->content;
-		if (coll->type == SPHERE)
-		{
-			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
-			printf("POS: "); print_vec3(coll->sphere->position);
-			printf("RAD: %.3f\n", coll->sphere->radius);
-			printf("COL: "); print_vec3(coll->sphere->color);
-		}
-		else if (coll->type == PLANE)
-		{
-			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
-			printf("POS: "); print_vec3(coll->plane->position);
-			printf("DIR: "); print_vec3(coll->plane->direction);
-			printf("COL: "); print_vec3(coll->plane->color);
-		}
-		else if (coll->type == CYLINDER)
-		{
-			printf("\e[1;3;37;44m %s \e[0m\n", get_coll_type(coll->type));
-			printf("POS: "); print_vec3(coll->cylinder->position);
-			printf("DIR: "); print_vec3(coll->cylinder->direction);
-			printf("DIA: %.3f\n", coll->cylinder->diameter);
-			printf("RAD: %.3f\n", coll->cylinder->radius);
-			printf("HGT: %.3f\n", coll->cylinder->height);
-			printf("COL: "); print_vec3(coll->cylinder->color);
-		}
-		printf("------------------------\n");
-		lst = lst->next;
-	}
-}
-
-static void	print_lights(t_scene *scene)
-{
-	t_list	*lst;
-	t_light	*light;
-
-	lst = scene->lights;
-	while (lst != NULL)
-	{
-		light = lst->content;
-		printf("\e[1;3;37;44m 💡 Light \e[0m\n");
-		printf("POS: "); print_vec3(light->position);
-		printf("BRT: %.3f\n", light->intensity);
-		printf("COL: "); print_vec3(light->color);
-		printf("------------------------\n");
-		lst = lst->next;
-	}
-}
-
-static void	print_scene(t_scene *scene)
-{
-	printf("\e[1;3;37;44m 🎬 Scene \e[0m\n");
-	printf("------------------------\n");
-	printf("\e[1;3;37;44m 🌞 Ambient light \e[0m\n");
-	printf("BRT: %.3f\n", scene->ambient_light.intensity);
-	printf("COL: "); print_vec3(scene->ambient_light.color);
-	printf("------------------------\n");
-	printf("\e[1;3;37;44m 📷 Camera \e[0m\n");
-	printf("POS: "); print_vec3(scene->camera.position);
-	printf("DIR: "); print_vec3(scene->camera.direction);
-	printf("FOV: %.3f\n", scene->camera.fov);
-	printf("------------------------\n");
-	print_lights(scene);
-	print_collideables(scene);
-} */
-
-void	quit(t_engine *engine)
+int	quit(t_engine *engine)
 {
 	ft_lstclear(&engine->scene.lights, free);
 	ft_lstclear(&engine->scene.collideables, free_collideable);
@@ -109,6 +20,7 @@ void	quit(t_engine *engine)
 	mlx_destroy_window(engine->mlx, engine->win);
 	// system("leaks minirt");
 	exit(0);
+	return (0);
 }
 
 static void	draw(t_engine *engine)
@@ -241,5 +153,6 @@ int	main(int ac, char **av)
 	draw(&engine);
 	mlx_do_key_autorepeaton(engine.mlx);
 	mlx_key_hook(engine.win, key_hook, &engine);
+	mlx_hook(engine.win, 17, 0, quit, &engine);
 	mlx_loop(engine.mlx);
 }

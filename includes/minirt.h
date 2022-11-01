@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 09:21:18 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:09:03 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_engine
 	double	vp_dist;
 }	t_engine;
 
-void	quit(t_engine *engine);
+int		quit(t_engine *engine);
 
 // RAYTRACING
 void	ray(t_hit *hit, t_scene *scene, t_collideable *o_p, size_t rec_limit);
