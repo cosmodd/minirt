@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 11:34:10 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/01 09:55:42 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,13 @@ bool	parse_scene(t_engine *engine, char *path)
 	char	**parameters;
 	int		fd;
 
-	fd = open(path, O_RDONLY);
+	if (ft_strcmp(path + ft_strlen(path) - 3, ".rt"))
+	{
+		plog(ERROR,"File suffix does not end with \".rt\"");
+		return (false);
+	}
+
+	fd = open(path, O_EXCL | O_RDONLY);
 	if (fd < 0)
 		return (false);
 	line = get_next_line(fd);

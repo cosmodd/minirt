@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 09:30:09 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 09:55:31 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,9 @@ int	main(int ac, char **av)
 
 	
 
-	parse_scene(&engine, av[1]);
+	if (!parse_scene(&engine, av[1]))
+		return (EXIT_FAILURE);
+
 	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
 
 	// print_scene(&engine.scene);

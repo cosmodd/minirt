@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/30 13:42:19 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 09:19:20 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_sphere	*new_sphere(t_vec3 position, double radius, t_vec3 color)
 	sphere->radius = radius;
 	sphere->color = color;
 	sphere->specular = 100;
-	sphere->reflection = 0.7f;
+	sphere->reflection = 0;
 	return (sphere);
 }
 
