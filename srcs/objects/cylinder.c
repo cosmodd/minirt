@@ -61,10 +61,10 @@ static void	intersect_disk(t_hit *hit, t_vec3 p, t_vec3 d, double rad)
 	denom = vec3_dot(d, hit->raydir);
 	if (fabs(denom) <= 1e-6)
 		return ;
-		co = vec3_sub(p, hit->pos);
+	co = vec3_sub(p, hit->pos);
 	t = vec3_dot(co, d) / denom;
 	if (t < 0)
-			return ;
+		return ;
 	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, t));
 	v = vec3_sub(hit->point, p);
 	if (vec3_dot(v, v) <= rad * rad && (hit->t == -1 || t < hit->t))
@@ -95,10 +95,11 @@ void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, hit->t));
 	hit->collided->normal = vec3_sub(hit->point, vec3_add(c_h[0], vec3_scalar(h[1], vec3_dot(vec3_sub(hit->point, c_h[0]), h[1]))));
 
-	if (vec3_dot(vec3_sub(hit->point, c_h[0]), h[0]) < 0)
-		intersect_disk(hit, c_h[0], h[1], c->radius);
-	else if (vec3_dot(vec3_sub(hit->point, c_h[0]), h[0]) > vec3_dot2(h[0]))
-		intersect_disk(hit, c_h[1], vec3_scalar(h[1], -1), c->radius);
+	if (vec3_dot(vec3_sub(hit->point, c_h[0]), h[0]) < 0
+		|| vec3_dot(vec3_sub(hit->point, c_h[0]), h[0]) > vec3_dot2(h[0]))
+		hit->t = -1;
+	intersect_disk(hit, c_h[0], vec3_scalar(h[1], -1), c->radius);
+	intersect_disk(hit, c_h[1], h[1], c->radius);
 
 	hit->collided->specular = hit->collided->cylinder->specular;
 	hit->collided->reflection = hit->collided->cylinder->reflection;
