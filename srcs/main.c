@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/30 14:21:20 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 09:30:09 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,11 @@ int	main(int ac, char **av)
 {
 	t_engine		engine;
 
+	if (ac != 2)
+	{
+		plog(ERROR, "Not the right number of arguments ! Usage: ./minirt <scene.rt>");
+		return (EXIT_FAILURE);
+	}
 	ft_bzero(&engine, sizeof(engine));
 	engine.mlx = mlx_init();
 	engine.win = mlx_new_window(engine.mlx, WIN_WIDTH, WIN_HEIGHT, "MiniRT");
@@ -224,11 +229,7 @@ int	main(int ac, char **av)
 	engine.vw = (double)WIN_WIDTH / (double)WIN_HEIGHT;
 	engine.vh = 1;
 
-	if (ac < 2)
-	{
-		plog(ERROR, "Not enough arguments ! Usage: ./minirt <scene.rt>");
-		return (EXIT_FAILURE);
-	}
+	
 
 	parse_scene(&engine, av[1]);
 	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
