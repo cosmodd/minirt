@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/29 04:08:36 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:40:14 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_scene
 	t_ambient	ambient_light;
 	t_list		*collideables;
 	t_list		*lights;
+	int			count[2];
 }	t_scene;
 
 t_light			*new_light_point(t_vec3 pos, double intensity, t_vec3 color);

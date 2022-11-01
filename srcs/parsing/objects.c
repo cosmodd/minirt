@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 10:18:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/19 17:47:21 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/01 11:36:15 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ static void	push_col(t_scene *scene, t_collideable *col)
 
 void	parse_object(t_engine *engine, char *type, char **params)
 {
-	if (ft_strcmp(type, "A") == 0)
+	if (ft_strcmp(type, "A") == 0 && !engine->scene.count[0]++)
 		parse_ambient(&engine->scene, params);
-	else if (ft_strcmp(type, "C") == 0)
+	else if (ft_strcmp(type, "C") == 0 && !engine->scene.count[1]++)
 		parse_camera(&engine->scene, params);
 	else if (ft_strcmp(type, "L") == 0)
 		parse_light(&engine->scene, params);

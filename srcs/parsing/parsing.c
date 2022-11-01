@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 09:55:42 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:39:22 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ bool	parse_scene(t_engine *engine, char *path)
 		}
 		parse_object(engine, parameters[0], parameters + 1);
 		line = get_next_line(fd);
+	}
+	
+	if (engine->scene.count[1] != 1)
+	{
+		plog(ERROR, "Camera object type does not exist");
+		return (false);
 	}
 	return (true);
 }
