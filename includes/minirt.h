@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 11:09:03 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:41:02 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # include "utils.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(200)
-# define WIN_HEIGHT		(200)
+# define WIN_WIDTH		(400)
+# define WIN_HEIGHT		(400)
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:47:06 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 09:19:20 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:19:02 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_collideable	*new_sphere_col(t_vec3 position, double radius, t_vec3 color)
 
 void	intersect_sphere(t_hit *hit, t_sphere *sphere)
 {
+	t_factors	f;
 	double	r;
 	t_vec3	vec_co;
 	t_vec3	abc;
@@ -66,18 +67,10 @@ void	intersect_sphere(t_hit *hit, t_sphere *sphere)
 
 	r = sphere->radius;
 	vec_co = vec3_sub(hit->pos, sphere->position);
-	abc.x = vec3_dot(hit->raydir, hit->raydir);
-	abc.y = 2.0 * vec3_dot(hit->raydir, vec_co);
-	abc.z = vec3_dot(vec_co, vec_co) - r * r;
-	discriminant = abc.y * abc.y - 4.0 * abc.x * abc.z;
-	if (discriminant < THRESHOLD)
-		return ((void)(hit->t = -1));
-	t[0] = (-abc.y - sqrt(discriminant)) / (2.0 * abc.x);
-	t[1] = (-abc.y + sqrt(discriminant)) / (2.0 * abc.x);
-	if (t[0] < 0 || t[1] < 0)
-		hit->t = fmax(t[0], t[1]);
-	else
-		hit->t = fmin(t[0], t[1]);
+	f.a = vec3_dot(hit->raydir, hit->raydir);
+	f.b = 2.0 * vec3_dot(hit->raydir, vec_co);
+	f.c = vec3_dot(vec_co, vec_co) - r * r;
+	nearest_t(hit, &f);
 	hit->collided->normal = vec3_sub(
 		vec3_add(vec3_scalar(hit->raydir, hit->t), hit->pos),
 		sphere->position);

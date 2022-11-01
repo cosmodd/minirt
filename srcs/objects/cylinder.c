@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:03:08 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/30 12:47:54 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:31:02 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,32 @@ t_collideable	*new_cylinder_col(t_vec3 position, t_vec3 direction, double diamet
 static void	intersect_disk(t_hit *hit, t_vec3 p, t_vec3 d, double rad)
 {
 	t_vec3	co;
-	t_vec3	inter;
 	t_vec3	v;
 	double	denom;
+	double	t;
 
 	denom = vec3_dot(d, hit->raydir);
-	if (fabs(denom) > 1e-6)
-	{
+	if (fabs(denom) <= 1e-6)
+		return ;
 		co = vec3_sub(p, hit->pos);
-		hit->t = vec3_dot(co, d) / denom;
-		if (hit->t < 0)
+	t = vec3_dot(co, d) / denom;
+	if (t < 0)
 			return ;
-		inter = vec3_add(hit->pos, vec3_scalar(hit->raydir, hit->t));
-		v = vec3_sub(inter, p);
-		if (vec3_dot(v, v) <= rad * rad)
-			return ((void)(hit->collided->normal = d));
+	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, t));
+	v = vec3_sub(hit->point, p);
+	if (vec3_dot(v, v) <= rad * rad && (hit->t == -1 || t < hit->t))
+	{
+		hit->t = t;
+		hit->collided->normal = d;
 	}
-	hit->t = -1;
 }
 
 void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 {
-	t_vec3	c_h[2];
-	t_vec3	h[2];
-	t_vec3	w;
-	double	abc[3];
-	double	disc;
-	double	t[2];
+	t_factors	f;
+	t_vec3		c_h[2];
+	t_vec3		h[2];
+	t_vec3		w;
 
 	c_h[0] = vec3_sub(c->position, vec3_scalar(c->direction, c->height / 2.0));
 	c_h[1] = vec3_add(c->position, vec3_scalar(c->direction, c->height / 2.0));
@@ -88,20 +87,11 @@ void	intersect_cylinder(t_hit *hit, t_cylinder *c)
 	h[1] = vec3_normalize(h[0]);
 	w = vec3_sub(hit->pos, c_h[0]);
 
-	abc[0] = vec3_dot2(hit->raydir) - pow(vec3_dot(hit->raydir, h[1]), 2);
-	abc[1] = 2 * (vec3_dot(hit->raydir, w) - vec3_dot(hit->raydir, h[1]) * vec3_dot(w, h[1]));
-	abc[2] = vec3_dot2(w) - pow(vec3_dot(w, h[1]), 2) - pow(c->radius, 2);
-	disc = abc[1] * abc[1] - 4 * abc[0] * abc[2];
+	f.a = vec3_dot2(hit->raydir) - pow(vec3_dot(hit->raydir, h[1]), 2);
+	f.b = 2 * (vec3_dot(hit->raydir, w) - vec3_dot(hit->raydir, h[1]) * vec3_dot(w, h[1]));
+	f.c = vec3_dot2(w) - pow(vec3_dot(w, h[1]), 2) - pow(c->radius, 2);
+	nearest_t(hit, &f);
 	
-	if (disc < 0)
-		return ((void)(hit->t = -1));
-	
-	t[0] = (-abc[1] - sqrt(disc)) / (2 * abc[0]);
-	t[1] = (-abc[1] + sqrt(disc)) / (2 * abc[0]);
-	if (t[0] <= 0 || t[1] <= 0)
-		hit->t = fmax(t[0], t[1]);
-	else
-		hit->t = fmin(t[0], t[1]);
 	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, hit->t));
 	hit->collided->normal = vec3_sub(hit->point, vec3_add(c_h[0], vec3_scalar(h[1], vec3_dot(vec3_sub(hit->point, c_h[0]), h[1]))));
 

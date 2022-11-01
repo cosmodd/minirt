@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 11:09:45 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:41:54 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	draw(t_engine *engine)
 		put_pixel(engine->frame, vpos.x, vpos.y, vp ^ 0xFFFFFF);
 	}
 	mlx_put_image_to_window(engine->mlx, engine->win, engine->frame.ptr, 0, 0);
-	printf("Direction: (%f, %f, %f)\n", engine->scene.camera.direction.x, engine->scene.camera.direction.y, engine->scene.camera.direction.z);
-	printf("Position: (%f, %f, %f)\n", engine->scene.camera.position.x, engine->scene.camera.position.y, engine->scene.camera.position.z);
 	sprintf(display_text, "Direction: (%f, %f, %f)", engine->scene.camera.direction.x, engine->scene.camera.direction.y, engine->scene.camera.direction.z);
 	mlx_string_put(engine->mlx, engine->win, 10, 20, 0xFFFFFF, display_text);
 	sprintf(display_text, "Position: (%f, %f, %f)", engine->scene.camera.position.x, engine->scene.camera.position.y, engine->scene.camera.position.z);
