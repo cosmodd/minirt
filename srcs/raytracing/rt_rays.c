@@ -6,13 +6,13 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/11/02 11:01:02 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:10:56 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec3	reflect_ray(t_vec3 raydir, t_vec3 normal)
+static t_vec3	reflect_ray(t_vec3 raydir, t_vec3 normal)
 {
 	t_vec3	reflected_ray;
 
@@ -48,9 +48,7 @@ void	ray(t_hit *hit, t_scene *scene, t_collideable *o_p, size_t rec_limit)
 	if (closest == NULL)
 		return ((void)(hit->color = vec3_from_rgba(VOID_COLOR)));
 	hit->t = min_dist;
-	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, min_dist));
 	hit->collided = closest;
-	hit->color = (t_vec3){0};
 }
 
 void	raytrace(t_scene scene, t_hit *hit, size_t rec_limit)
@@ -61,12 +59,15 @@ void	raytrace(t_scene scene, t_hit *hit, size_t rec_limit)
 	ray(hit, &scene, hit->collided, rec_limit);
 	if (hit->collided == NULL || hit->t < 0)
 		return ;
+	hit->point = vec3_add(hit->pos, vec3_scalar(hit->raydir, hit->t));
 	hit->collided->normal = vec3_normalize(hit->collided->normal);
+	hit->color = (t_vec3){0};
 	compute_lighting(scene, hit);
 	r = hit->collided->reflection;
-	if (!rec_limit|| !r)
+	if (!rec_limit || !r)
 		return ;
-	hit->raydir = reflect_ray(vec3_scalar(hit->raydir, -1), hit->collided->normal);
+	hit->raydir = reflect_ray(vec3_scalar(hit->raydir, -1), \
+		hit->collided->normal);
 	prev_color = hit->color;
 	hit->pos = hit->point;
 	raytrace(scene, hit, rec_limit - 1);
