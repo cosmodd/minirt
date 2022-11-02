@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 14:20:11 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 14:22:05 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void quit_error(t_scene *scene, int plogret)
 {
-	(void)plogret;
 	if (scene->lights)
 		ft_lstclear(&scene->lights, free);
 	if (scene->collideables)
 		ft_lstclear(&scene->collideables, free_collideable);
-	exit(0);
+	exit(plogret);
 }
 
 int	quit(t_engine *engine)
