@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:19:59 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:32:36 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	quit(t_engine *engine)
 	ft_lstclear(&engine->scene.collideables, free_collideable);
 	destroy_image(engine->frame);
 	mlx_destroy_window(engine->mlx, engine->win);
-	// system("leaks minirt");
+	system("leaks minirt");
 	exit(0);
 	return (0);
 }
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		plog(ERROR, "Not the right number of arguments ! Usage: ./minirt <scene.rt>");
+		plog(ERROR, "Wrong number of arguments ! Usage: ./minirt <scene.rt>");
 		return (EXIT_FAILURE);
 	}
 	ft_bzero(&engine, sizeof(engine));

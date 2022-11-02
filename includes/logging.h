@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 10:06:35 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/12 10:15:31 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 10:53:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_log
 	DEBUG
 }	t_log;
 
-void	plog(t_log type, char *msg);
+int		plog(t_log type, char *msg);
 void	usage(void);
 
 #endif

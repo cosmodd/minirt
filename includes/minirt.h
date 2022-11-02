@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:20:08 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:32:51 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ray(t_hit *hit, t_scene *scene, t_collideable *o_p, size_t rec_limit);
 void	basic_raytracer(t_engine *engine);
 void	raytrace(t_scene scene, t_hit *hit, size_t rec_limit);
 void	compute_lighting(t_scene scene, t_hit *hit);
-bool	in_shadow(t_vec3 point, t_light light, t_scene scene, t_collideable *o_p);
+bool	in_shadow(t_vec3 point, t_light light, t_scene scene, t_collideable *o);
 
 // SCENE PARSING
 bool	parse_scene(t_engine *engine, char *path);

@@ -6,13 +6,13 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 09:53:13 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/12 10:31:46 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 10:52:36 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "logging.h"
 
-void	plog(t_log type, char *msg)
+int	plog(t_log type, char *msg)
 {
 	char	*prefix;
 
@@ -23,7 +23,7 @@ void	plog(t_log type, char *msg)
 		prefix = "\e[1;37;41m ERROR \e[0m";
 	else if (type == DEBUG)
 		prefix = "\e[1;37;45m DEBUG \e[0m";
-	printf("%s\e[1;37m %s \e[0m\n", prefix, msg);
+	return (printf("%s\e[1;37m %s \e[0m\n", prefix, msg));
 }
 
 void	usage(void)
