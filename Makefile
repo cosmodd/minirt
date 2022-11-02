@@ -4,6 +4,7 @@
 
 SRCS	=	srcs/logging.c \
 			srcs/main.c \
+			srcs/controls.c \
 			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/vector/vector_add.c \
 			srcs/maths/vector/vector_color.c \
