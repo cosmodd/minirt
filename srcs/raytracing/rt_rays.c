@@ -6,13 +6,14 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:27:13 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/31 15:35:09 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:01:02 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec3	reflect_ray(t_vec3 raydir, t_vec3 normal) {
+t_vec3	reflect_ray(t_vec3 raydir, t_vec3 normal)
+{
 	t_vec3	reflected_ray;
 
 	reflected_ray = vec3_scalar(normal, 2);

@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:18:23 by pforesti          #+#    #+#             */
-/*   Updated: 2022/10/30 11:25:32 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:00:29 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ static void	ray_shadow(t_hit *hit, t_scene *scene, t_collideable *o_p)
 	hit->t = min_dist;
 }
 
-bool in_shadow(t_vec3 point, t_light light, t_scene scene, t_collideable *o_p)
+bool	in_shadow(t_vec3 p, t_light light, t_scene scene, t_collideable *o_p)
 {
 	t_hit	hit;
 	t_vec3	point_to_light;
 	double	dist_to_light;
 
 	hit = (t_hit){0};
-	hit.pos = point;
-	point_to_light = vec3_sub(light.position, point);
+	hit.pos = p;
+	point_to_light = vec3_sub(light.position, p);
 	dist_to_light = vec3_magnitude(point_to_light);
 	hit.raydir = vec3_normalize(point_to_light);
 	ray_shadow(&hit, &scene, o_p);
