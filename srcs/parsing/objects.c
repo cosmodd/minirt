@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 10:18:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 11:36:15 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:17:00 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ static void	push_col(t_scene *scene, t_collideable *col)
 	ft_lstadd_back(&scene->collideables, ft_lstnew(col));
 }
 
+static void	parse_object_cylinder(t_engine *engine, char *type, char **params)
+{
+	t_vec2	dandh;
+
+	dandh.x = parse_double(params[2]);
+	dandh.y = parse_double(params[3]);
+	push_col(&engine->scene, new_cylinder_col(parse_vec3(params[0]),\
+			vec3_normalize(parse_vec3(params[1])), dandh, \
+				parse_color(params[4])));
+}
+
 void	parse_object(t_engine *engine, char *type, char **params)
 {
 	if (ft_strcmp(type, "A") == 0 && !engine->scene.count[0]++)
@@ -83,12 +94,10 @@ void	parse_object(t_engine *engine, char *type, char **params)
 		push_col(&engine->scene, new_plane_col(parse_vec3(params[0]),
 			vec3_normalize(parse_vec3(params[1])), parse_color(params[2])));
 	else if (ft_strcmp(type, "cy") == 0)
-		push_col(&engine->scene, new_cylinder_col(parse_vec3(params[0]),
-			vec3_normalize(parse_vec3(params[1])), parse_double(params[2]),
-				parse_double(params[3]), parse_color(params[4])));
+		parse_object_cylinder(engine, type, params);
 	else
 	{
-		plog(ERROR, "Unknown object type");
+		plog(ERROR, "While parsing object type");
 		exit(1);
 	}
 }

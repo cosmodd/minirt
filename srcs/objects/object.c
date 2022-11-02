@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:05:16 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/01 14:16:20 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 10:22:03 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_collideable(void *ptr)
 void	nearest_t(t_hit *hit, t_factors *f)
 {
 	double	t;
-	
+
 	t = -1;
 	f->delta = f->b * f->b - 4 * f->a * f->c;
 	f->sqrt_delta = sqrt(f->delta);
