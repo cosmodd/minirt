@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:27:05 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:19:31 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	is_empty_line(char *line)
 	return (true);
 }
 
-t_vec3	parse_vec3(char *str)
+t_vec3	parse_vec3(t_scene *scene, char *str)
 {
 	t_vec3	result;
 	char	**split;
@@ -29,7 +29,8 @@ t_vec3	parse_vec3(char *str)
 	if (strl_len(split) != 3)
 	{
 		strl_free(&split);
-		exit((plog(ERROR, "Invalid vector format ! Expected x,y,z") & 0) || 1);
+		quit_error(scene, ((plog(ERROR, \
+			"Invalid vector format ! Expected x,y,z") & 0) | 1));
 	}
 	result.x = ft_atof(split[0]);
 	result.y = ft_atof(split[1]);
@@ -38,7 +39,7 @@ t_vec3	parse_vec3(char *str)
 	return (result);
 }
 
-t_vec3	parse_color(char *str)
+t_vec3	parse_color(t_scene *scene, char *str)
 {
 	t_vec3	result;
 	char	**split;
@@ -47,23 +48,29 @@ t_vec3	parse_color(char *str)
 	if (strl_len(split) != 3)
 	{
 		strl_free(&split);
-		exit((plog(ERROR, "Invalid color format ! Expected r,g,b") & 0) | 1);
+		quit_error(scene, ((plog(ERROR, \
+			"Invalid color format ! Expected r,g,b") & 0) | 1));
 	}
 	result.x = ft_atof(split[0]);
 	result.y = ft_atof(split[1]);
 	result.z = ft_atof(split[2]);
+	if (result.x > 255 || result.y > 255 || result.z > 255 \
+		|| result.x < 0 || result.y < 0 || result.z < 0)
+		quit_error(scene, ((plog(ERROR, "Invalid color format ! " \
+			"Expected range [0-255]") & 0) | 1));
 	strl_free(&split);
 	return (result);
 }
 
-double	parse_double(char *str)
+double	parse_double(t_scene *scene, char *str)
 {
 	int	i;
 
 	i = -1;
 	while (str[++i])
 		if (!ft_isdigit(str[i]) && str[i] != '.')
-			exit((plog(ERROR, "Invalid double format ! Expected 0.0") & 0) | 1);
+			quit_error(scene, ((plog(ERROR, \
+				"Invalid double format ! Expected +0.0") & 0) | 1));
 	return (ft_atof(str));
 }
 
@@ -92,6 +99,6 @@ bool	parse_scene(t_engine *engine, char *path)
 		line = get_next_line(fd);
 	}
 	if (counts.cams == 0)
-		return (plog(ERROR, "Scene doesn't contain camera") & 0);
+		quit_error(&engine->scene, (plog(ERROR, "No camera in scene !") & 0));
 	return (true);
 }

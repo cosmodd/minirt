@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:39:27 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:20:11 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void quit_error(t_scene *scene, int plogret)
+{
+	(void)plogret;
+	if (scene->lights)
+		ft_lstclear(&scene->lights, free);
+	if (scene->collideables)
+		ft_lstclear(&scene->collideables, free_collideable);
+	exit(0);
+}
 
 int	quit(t_engine *engine)
 {

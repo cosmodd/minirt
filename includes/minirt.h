@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:32:51 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 13:44:33 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_engine
 
 void	draw(t_engine *engine);
 int		quit(t_engine *engine);
+void	quit_error(t_scene *scene, int plogret);
 
 // CONTROLS & EVENTS
 int		key_hook(int keycode, t_engine *engine);
