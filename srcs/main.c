@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 14:22:05 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:18:04 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void quit_error(t_scene *scene, int plogret)
+void	quit_error(t_scene *scene, int plogret)
 {
 	if (scene->lights)
 		ft_lstclear(&scene->lights, free);
@@ -27,7 +27,6 @@ int	quit(t_engine *engine)
 	ft_lstclear(&engine->scene.collideables, free_collideable);
 	destroy_image(engine->frame);
 	mlx_destroy_window(engine->mlx, engine->win);
-	system("leaks minirt");
 	exit(0);
 	return (0);
 }

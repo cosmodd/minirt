@@ -4,7 +4,6 @@
 
 SRCS	=	srcs/logging.c \
 			srcs/main.c \
-			srcs/controls.c \
 			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/vector/vector_add.c \
 			srcs/maths/vector/vector_color.c \
@@ -34,14 +33,19 @@ SRCS	=	srcs/logging.c \
 			srcs/xutils/color.c \
 			srcs/xutils/image.c \
 
-OBJS	=	$(SRCS:.c=.o)
+SRCS_MANDATORY	:=	srcs/controls.c
+SRCS_BONUS		:=	srcs/controls_bonus.c
+
+OBJS			:=	$(SRCS:.c=.o)
+OBJS_MANDATORY	:=	$(SRCS_MANDATORY:.c=.o)
+OBJS_BONUS		:=	$(SRCS_BONUS:.c=.o)
 
 ################################################################################
 #  CONSTANTS                                                                   #
 ################################################################################
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra
+CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-Ofast
 
 NAME		=	minirt
@@ -93,22 +97,29 @@ DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 ################################################################################
 
 %.o: %.c
-	@make -sC libs/libft
 	@$(CC) $(OBJ_OPTS) -g -c $< -o $@
 	@echo -n '$(REDO)$(INFO) $(notdir $@) $(NOCOL)'
 
-all: $(NAME)
+all:
+	@make -sC libs/libft
+	@make -sC libs/minilibx
+	@make $(NAME) SRCS="$(SRCS) $(SRCS_MANDATORY)"
+
+bonus:
+	@make -sC libs/libft
+	@make -sC libs/minilibx
+	@make $(NAME) SRCS="$(SRCS) $(SRCS_BONUS)"
 
 $(NAME): $(OBJS)
-	@$(CC)  $^ $(BIN_OPTS) -o $(NAME)
+	@$(CC) $^ $(BIN_OPTS) -o $(NAME)
 	@echo '$(REDO)$(VALID) $@ $(NOCOL)'
 
 debug: fclean
 	@make -s CFLAGS="$(CFLAGS) -g" BIN_OPTS="$(BIN_OPTS) -fsanitize=address"
 
 clean:
-	@rm -f $(OBJS)
-	@echo '$(DEL) Removed $(words $(OBJS)) object files $(NOCOL)'
+	@rm -f $(OBJS) $(OBJS_MANDATORY) $(OBJS_BONUS)
+	@echo '$(DEL) Removed $(words $(OBJS), $(OBJS_MANDATORY), $(OBJS_BONUS)) object files $(NOCOL)'
 
 fclean: clean
 	@rm -f $(NAME)
