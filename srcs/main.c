@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 11:32:36 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 11:39:27 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,11 @@ int	main(int ac, char **av)
 	engine.mlx = mlx_init();
 	engine.win = mlx_new_window(engine.mlx, WIN_WIDTH, WIN_HEIGHT, "MiniRT");
 	engine.frame = new_image(engine.mlx, WIN_WIDTH, WIN_HEIGHT);
-
 	engine.vw = (double)WIN_WIDTH / (double)WIN_HEIGHT;
 	engine.vh = 1;
-
-	
-
 	if (!parse_scene(&engine, av[1]))
 		return (EXIT_FAILURE);
-
 	engine.vp_dist = engine.vw / tan(engine.scene.camera.fov * M_PI / 180 / 2);
-
 	draw(&engine);
 	mlx_do_key_autorepeaton(engine.mlx);
 	mlx_key_hook(engine.win, key_hook, &engine);
