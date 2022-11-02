@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:48:50 by pforesti          #+#    #+#             */
-/*   Updated: 2022/11/02 10:18:00 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:43:02 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ typedef struct s_scene
 	t_ambient	ambient_light;
 	t_list		*collideables;
 	t_list		*lights;
-	int			count[2];
 }	t_scene;
 
 t_cylinder		*new_cylinder(t_vec3 pos, t_vec3 dir, t_vec2 dh, t_vec3 c);

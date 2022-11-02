@@ -20,8 +20,9 @@ SRCS	=	srcs/logging.c \
 			srcs/objects/object.c \
 			srcs/objects/plane.c \
 			srcs/objects/sphere.c \
-			srcs/parsing/objects.c \
+			srcs/parsing/objects_unique.c \
 			srcs/parsing/parsing.c \
+			srcs/parsing/objects.c \
 			srcs/raytracing/rt_engine.c \
 			srcs/raytracing/rt_rays.c \
 			srcs/raytracing/rt_light.c \

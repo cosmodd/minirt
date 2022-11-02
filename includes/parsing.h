@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:55:26 by mrattez           #+#    #+#             */
-/*   Updated: 2022/10/14 10:43:04 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/02 10:39:42 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 t_vec3	parse_vec3(char *str);
 t_vec3	parse_color(char *str);
 double	parse_double(char *str);
+
+void	parse_ambient(t_scene *scene, char **params);
+void	parse_camera(t_scene *scene, char **params);
+void	parse_light(t_scene *scene, char **params);
 
 void	parse_object(t_engine *engine, char *type, char **parameters);
 
