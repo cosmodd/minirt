@@ -20,6 +20,7 @@ static void	push_col(t_scene *scene, t_collideable *col)
 static void	parse_cylinder(t_engine *e, char **params)
 {
 	t_vec2	dandh;
+	
 
 	dandh.x = parse_double(&e->scene, params[2]);
 	dandh.y = parse_double(&e->scene, params[3]);

@@ -15,16 +15,10 @@ SRCS	=	srcs/logging.c \
 			srcs/maths/vector/vector_rotate.c \
 			srcs/maths/vector/vector_scalar.c \
 			srcs/maths/vector/vector_sub.c \
-			srcs/objects/cylinder.c \
 			srcs/objects/light_point.c \
 			srcs/objects/object.c \
-			srcs/objects/plane.c \
-			srcs/objects/sphere.c \
 			srcs/parsing/objects_unique.c \
 			srcs/parsing/parsing.c \
-			srcs/parsing/objects.c \
-			srcs/raytracing/rt_engine.c \
-			srcs/raytracing/rt_rays.c \
 			srcs/raytracing/rt_light.c \
 			srcs/raytracing/rt_shadow.c \
 			srcs/utils/str_split.c \
@@ -33,8 +27,21 @@ SRCS	=	srcs/logging.c \
 			srcs/xutils/color.c \
 			srcs/xutils/image.c \
 
-SRCS_MANDATORY	:=	srcs/controls.c
-SRCS_BONUS		:=	srcs/controls_bonus.c
+SRCS_MANDATORY	:=	srcs/controls.c \
+					srcs/raytracing/rt_engine.c \
+					srcs/raytracing/rt_rays.c \
+					srcs/objects/cylinder.c \
+					srcs/objects/sphere.c \
+					srcs/objects/plane.c \
+					srcs/parsing/objects.c \
+
+SRCS_BONUS		:=	srcs/controls_bonus.c \
+					srcs/raytracing/rt_engine_bonus.c \
+					srcs/raytracing/rt_rays_bonus.c \
+					srcs/objects/cylinder_bonus.c \
+					srcs/objects/sphere_bonus.c \
+					srcs/objects/plane_bonus.c \
+					srcs/parsing/objects_bonus.c \
 
 OBJS			:=	$(SRCS:.c=.o)
 OBJS_MANDATORY	:=	$(SRCS_MANDATORY:.c=.o)
@@ -102,12 +109,12 @@ DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 
 all:
 	@make -sC libs/libft
-	#@make -sC libs/minilibx
+	@make -sC libs/minilibx
 	@make $(NAME) SRCS="$(SRCS) $(SRCS_MANDATORY)"
 
 bonus:
 	@make -sC libs/libft
-	#@make -sC libs/minilibx
+	@make -sC libs/minilibx
 	@make $(NAME) SRCS="$(SRCS) $(SRCS_BONUS)"
 
 $(NAME): $(OBJS)

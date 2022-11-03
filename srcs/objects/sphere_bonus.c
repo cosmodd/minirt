@@ -10,32 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 /**
  * @brief Returns a sphere object.
  *
- * @param position Position of the center of the sphere.
- * @param diameter Diameter of the sphere.
- * @param color Color of the sphere object.
+ * @param pos Position of the center of the sphere.
+ * @param dsr Diameter, specularity, reflection.
+ * @param c Color of the sphere object.
  * @return t_sphere*
  */
-t_sphere	*new_sphere(t_vec3 position, double diameter, t_vec3 color)
+t_sphere	*new_sphere(t_vec3 pos, t_vec3 dsr, t_vec3 c)
 {
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
 	if (sphere == NULL)
 		return (NULL);
-	sphere->position = position;
-	sphere->radius = diameter * 0.5f;
-	sphere->color = color;
-	sphere->specular = -1;
-	sphere->reflection = 0;
+	sphere->position = pos;
+	sphere->radius = dsr.x * 0.5f;
+	sphere->color = c;
+	sphere->specular = dsr.y;
+	sphere->reflection = dsr.z;
 	return (sphere);
 }
 
-t_collideable	*new_sphere_col(t_vec3 position, double diameter, t_vec3 color)
+t_collideable	*new_sphere_col(t_vec3 pos, t_vec3 dsr, t_vec3 c)
 {
 	t_collideable	*collideable;
 	t_sphere		*sphere;
@@ -44,8 +44,8 @@ t_collideable	*new_sphere_col(t_vec3 position, double diameter, t_vec3 color)
 	if (collideable == NULL)
 		return (NULL);
 	collideable->type = SPHERE;
-	collideable->color = color;
-	sphere = new_sphere(position, diameter, color);
+	collideable->color = c;
+	sphere = new_sphere(pos, dsr, c);
 	if (sphere == NULL)
 	{
 		free(collideable);

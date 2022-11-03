@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_BONUS_H
+# define MINIRT_BONUS_H
 
 // STANDARD
 # include <stdio.h>
@@ -29,8 +29,8 @@
 # include "xutils.h"
 # include "keys.h"
 # include "mlx_keycodes.h"
-# include "maths.h"
-# include "objects.h"
+# include "maths_bonus.h"
+# include "objects_bonus.h"
 # include "logging.h"
 # include "utils.h"
 
@@ -40,7 +40,7 @@
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
-# define REC_LIMIT		0	
+# define REC_LIMIT		2	
 
 typedef struct s_engine
 {

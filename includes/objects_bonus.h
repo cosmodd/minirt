@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef OBJECTS_BONUS_H
+# define OBJECTS_BONUS_H
 
-# include "maths.h"
+# include "maths_bonus.h"
 # include "libft.h"
 
 typedef enum e_object
@@ -124,17 +124,17 @@ typedef struct s_scene
 	t_list		*lights;
 }	t_scene;
 
-t_cylinder		*new_cylinder(t_vec3 pos, t_vec3 dir, t_vec2 dh, t_vec3 c);
-t_collideable	*new_cylinder_col(t_vec3 pos, t_vec3 dir, t_vec2 dh, t_vec3 c);
+t_cylinder		*new_cylinder(t_vec3_vec3 pdc, t_vec2 dh, t_vec2 sr);
+t_collideable	*new_cylinder_col(t_vec3_vec3 pdc, t_vec2 dh, t_vec2 sr);
 void			intersect_cylinder(t_hit *hit, t_cylinder *c);
 t_light			*new_light_point(t_vec3 pos, double intensity, t_vec3 color);
 void			free_collideable(void *ptr);
 void			nearest_t(t_hit *hit, t_factors *f);
-t_plane			*new_plane(t_vec3 position, t_vec3 direction, t_vec3 color);
-t_collideable	*new_plane_col(t_vec3 position, t_vec3 direction, t_vec3 color);
+t_plane			*new_plane(t_vec3 pos, t_vec3 dir, t_vec2 sr, t_vec3 color);
+t_collideable	*new_plane_col(t_vec3 pos, t_vec3 dir, t_vec2 sr, t_vec3 color);
 void			intersect_plane(t_hit *hit, t_plane *plane);
-t_sphere		*new_sphere(t_vec3 position, double diameter, t_vec3 color);
-t_collideable	*new_sphere_col(t_vec3 position, double diameter, t_vec3 color);
+t_sphere		*new_sphere(t_vec3 pos, t_vec3 dsr, t_vec3 c);
+t_collideable	*new_sphere_col(t_vec3 pos, t_vec3 dsr, t_vec3 c);
 void			intersect_sphere(t_hit *hit, t_sphere *sphere);
 
 #endif
