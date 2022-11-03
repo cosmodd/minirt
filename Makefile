@@ -102,12 +102,12 @@ DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 
 all:
 	@make -sC libs/libft
-	@make -sC libs/minilibx
+	#@make -sC libs/minilibx
 	@make $(NAME) SRCS="$(SRCS) $(SRCS_MANDATORY)"
 
 bonus:
 	@make -sC libs/libft
-	@make -sC libs/minilibx
+	#@make -sC libs/minilibx
 	@make $(NAME) SRCS="$(SRCS) $(SRCS_BONUS)"
 
 $(NAME): $(OBJS)

@@ -14,7 +14,7 @@
 
 int	key_hook(int keycode, t_engine *engine)
 {
-	if (keycode == KEY_ESC)
+	if (keycode == KEY_ECHAP)
 		quit(engine);
 	return (0);
 }

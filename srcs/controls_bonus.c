@@ -85,7 +85,7 @@ int	key_hook(int keycode, t_engine *engine)
 	static double	rot_angle = M_PI / 90;
 	double			rot;
 
-	if (keycode == KEY_ESC)
+	if (keycode == KEY_ECHAP)
 		quit(engine);
 	if (keycode == KEY_W || keycode == KEY_S)
 		move_forward(engine, (keycode == KEY_W) * 2 - 1);
