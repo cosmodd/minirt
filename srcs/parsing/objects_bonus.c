@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.c                                          :+:      :+:    :+:   */
+/*   objects_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 10:18:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 14:18:04 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:19:50 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	parse_cylinder(t_engine *e, char **params)
 	push_col(&e->scene, new_cylinder_col(pdc, dh, sr));
 }
 
-
 static void	parse_sphere(t_engine *e, char **params)
 {
 	t_vec3	dsr;
@@ -67,7 +66,7 @@ static void	parse_plane(t_engine *e, char **params)
 
 	pos = parse_vec3(&e->scene, params[0]);
 	dir = vec3_normalize(parse_vec3(&e->scene, params[1]));
-	sr.x= parse_double(&e->scene, params[2]);
+	sr.x = parse_double(&e->scene, params[2]);
 	if (!sr.x)
 		sr.x = -1;
 	sr.y = parse_double(&e->scene, params[3]);
@@ -87,7 +86,7 @@ void	parse_object(t_engine *e, char *type, char **params, t_counts *c)
 	else if (ft_strcmp(type, "L") == 0)
 		parse_light(&e->scene, params);
 	else if (ft_strcmp(type, "sp") == 0)
-		parse_sphere(e,params);
+		parse_sphere(e, params);
 	else if (ft_strcmp(type, "pl") == 0)
 		parse_plane(e, params);
 	else if (ft_strcmp(type, "cy") == 0)

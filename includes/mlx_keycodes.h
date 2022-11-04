@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_keycodes.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mframbou <mframbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:13:52 by mframbou          #+#    #+#             */
-/*   Updated: 2021/12/04 14:29:59 by difool           ###   ########.fr       */
+/*   Updated: 2022/11/04 10:18:46 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 #  define KEY_1 49
 #  define KEY_2 50
 #  define KEY_3 51
-#  define KEY_4 52#
+#  define KEY_4 52
 #  define KEY_5 53
 #  define KEY_6 54
 #  define KEY_7 55

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 10:18:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 14:18:04 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:20:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	push_col(t_scene *scene, t_collideable *col)
 static void	parse_cylinder(t_engine *e, char **params)
 {
 	t_vec2	dandh;
-	
 
 	dandh.x = parse_double(&e->scene, params[2]);
 	dandh.y = parse_double(&e->scene, params[3]);

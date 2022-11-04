@@ -2,12 +2,12 @@
 #	C		position(x,y,z)	direction(x,y,z)	fov
 
 #	LIGHTS ------------------------------------------------------------------------------------------------------- #
-#	A											intensity											color(R,G,B)
-#	L		position(x,y,z)	intensity(0.0-1.0)														color(R,G,B)
+#	A						intensity																	color(R,G,B)
+#	L		position(x,y,z)	intensity(0.0-1.0)															color(R,G,B)
 
 #	OBJECTS ------------------------------------------------------------------------------------------------------ #
-#	pl		position(x,y,z)	normal(x,y,z)		specular		reflection								color(R,G,B)
-#	sp		position(x,y,z)						diameter		specular	reflection					color(R,G,B)
+#	pl		position(x,y,z)	normal(x,y,z)		specular								reflection		color(R,G,B)
+#	sp		position(x,y,z)						diameter					specular	reflection		color(R,G,B)
 #	cy		position(x,y,z)	direction(x,y,z)	diameter		height		specular	reflection		color(R,G,B)
 
 #	SCENE -------------------------------------------------------------------------------------------------------- #
