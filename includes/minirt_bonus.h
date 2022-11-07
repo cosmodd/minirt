@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/07 09:04:26 by pforesti         ###   ########.fr       */
-=======
-/*   Updated: 2022/11/06 22:13:59 by mrattez          ###   ########.fr       */
->>>>>>> 72f3de0 (🐛 Fixed segfault when missing last parameters in scenes)
+/*   Updated: 2022/11/07 22:27:16 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +35,8 @@
 # include "utils.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(1000)
-# define WIN_HEIGHT		(750)
+# define WIN_WIDTH		(1280)
+# define WIN_HEIGHT		(800)
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
