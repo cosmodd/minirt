@@ -3,7 +3,6 @@
 ################################################################################
 
 SRCS	=	srcs/logging.c \
-			srcs/main.c \
 			srcs/maths/matrix/mat_lookat.c \
 			srcs/maths/vector/vector_add.c \
 			srcs/maths/vector/vector_color.c \
@@ -25,23 +24,26 @@ SRCS	=	srcs/logging.c \
 			srcs/utils/strl_free.c \
 			srcs/utils/strl_len.c \
 			srcs/xutils/color.c \
-			srcs/xutils/image.c \
 
 SRCS_MANDATORY	:=	srcs/controls.c \
+					srcs/main.c \
 					srcs/raytracing/rt_engine.c \
 					srcs/raytracing/rt_rays.c \
 					srcs/objects/cylinder.c \
 					srcs/objects/sphere.c \
 					srcs/objects/plane.c \
 					srcs/parsing/objects.c \
+					srcs/xutils/image.c \
 
 SRCS_BONUS		:=	srcs/controls_bonus.c \
+					srcs/main_bonus.c \
 					srcs/raytracing/rt_engine_bonus.c \
 					srcs/raytracing/rt_rays_bonus.c \
 					srcs/objects/cylinder_bonus.c \
 					srcs/objects/sphere_bonus.c \
 					srcs/objects/plane_bonus.c \
 					srcs/parsing/objects_bonus.c \
+					srcs/xutils/image_bonus.c \
 
 OBJS			:=	$(SRCS:.c=.o)
 OBJS_MANDATORY	:=	$(SRCS_MANDATORY:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/04 11:37:04 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/07 09:04:26 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@
 # include "utils.h"
 
 // CONSTANTS
-# define WIN_WIDTH		(1280)
-# define WIN_HEIGHT		(800)
+# define WIN_WIDTH		(1000)
+# define WIN_HEIGHT		(750)
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
-# define REC_LIMIT		50
+# define REC_LIMIT		2
 
 typedef struct s_engine
 {
