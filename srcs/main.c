@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:28:43 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 17:18:04 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/06 22:00:57 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ int	main(int ac, char **av)
 	mlx_key_hook(engine.win, key_hook, &engine);
 	mlx_hook(engine.win, 17, 0, quit, &engine);
 	mlx_loop(engine.mlx);
+	quit(&engine);
 }

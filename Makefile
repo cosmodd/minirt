@@ -57,7 +57,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-Ofast
 
-NAME		=	minirt
+NAME		=	miniRT
 
 INCLUDES	= -Iincludes -Ilibs/libft/includes
 LIBS		= -Llibs/libft -lft

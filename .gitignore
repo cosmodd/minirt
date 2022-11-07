@@ -54,3 +54,6 @@ dkms.conf
 
 # Vscode
 .vscode
+
+# Other
+scenes/backup/

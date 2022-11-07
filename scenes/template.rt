@@ -1,14 +1,15 @@
+#	TYPE	POSITION	DIRECTION		PROP1	PROP2	PROP3	PROP4		COLOR
 # View ----------------------------------------------------------------------- #
-#	C	position	direction		fov
+#	C		position	direction		fov
 
 # Lights --------------------------------------------------------------------- #
-#	A								intensity				color
-#	L	position					intensity				color
+#	A									intensity							color
+#	L		position					intensity							color
 
 # Objects -------------------------------------------------------------------- #
-#	sp	position					diameter				color
-#	pl	position	normal									color
-#	cy	position	normal			diameter	height		color
+#	sp		position					diameter							color
+#	cy		position	normal			diameter	height					color
+#	pl		position	normal												color
 
 #	TYPE	POSITION	DIRECTION		PROP1	PROP2	PROP3	PROP4		COLOR
 	C		0,0,0		0,0,1			90

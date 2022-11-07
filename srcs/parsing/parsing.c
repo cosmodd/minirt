@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:55:57 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/02 14:19:31 by pforesti         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:54:17 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_vec3	parse_vec3(t_scene *scene, char *str)
 	t_vec3	result;
 	char	**split;
 
+	if (str == NULL)
+		quit_error(scene, (plog(ERROR, "Missing vector attribute !") & 0) | 1);
 	split = str_split(str, ",");
 	if (strl_len(split) != 3)
 	{
@@ -44,6 +46,8 @@ t_vec3	parse_color(t_scene *scene, char *str)
 	t_vec3	result;
 	char	**split;
 
+	if (str == NULL)
+		quit_error(scene, (plog(ERROR, "Missing color attribute !") & 0) | 1);
 	split = str_split(str, ",");
 	if (strl_len(split) != 3)
 	{
@@ -67,6 +71,8 @@ double	parse_double(t_scene *scene, char *str)
 	int	i;
 
 	i = -1;
+	if (str == NULL)
+		quit_error(scene, (plog(ERROR, "Missing double value !") & 0) | 1);
 	while (str[++i])
 		if (!ft_isdigit(str[i]) && str[i] != '.')
 			quit_error(scene, ((plog(ERROR, \
@@ -86,7 +92,7 @@ bool	parse_scene(t_engine *engine, char *path)
 		return (plog(ERROR, "Invalid file extension ! Expected '.rt'") & 0);
 	fd = open(path, O_EXCL | O_RDONLY);
 	if (fd < 0)
-		return (false);
+		return (plog(ERROR, "Invalid file path !") & 0);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -99,6 +105,6 @@ bool	parse_scene(t_engine *engine, char *path)
 		line = get_next_line(fd);
 	}
 	if (counts.cams == 0)
-		quit_error(&engine->scene, (plog(ERROR, "No camera in scene !") & 0));
+		quit_error(&engine->scene, plog(ERROR, "No camera in scene !") & 0);
 	return (true);
 }

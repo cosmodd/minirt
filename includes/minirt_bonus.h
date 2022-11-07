@@ -6,7 +6,11 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/07 09:04:26 by pforesti         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/06 22:13:59 by mrattez          ###   ########.fr       */
+>>>>>>> 72f3de0 (🐛 Fixed segfault when missing last parameters in scenes)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +44,7 @@
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
-# define REC_LIMIT		2
+# define REC_LIMIT		25
 
 typedef struct s_engine
 {
