@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/07 22:27:16 by mrattez          ###   ########.fr       */
+/*   Updated: 2022/11/09 09:38:27 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
-# define REC_LIMIT		25
+# define REC_LIMIT		3
 
 typedef struct s_engine
 {
