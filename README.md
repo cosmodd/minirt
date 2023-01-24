@@ -22,7 +22,7 @@ Type ``./miniRT`` followed by the map of your choice as a parameter.\
     **e.g.** ``./scenes/[something].rt``
 
 * ``w, a, s, d`` keys are used to move around.
-* ``j, k`` are used to modify the angle of the vertical axis.
+* ``i, j, k, l`` keys are used to rotate the camera view.
 * ``ctrl, space`` are used to go down/up along the vertical axis.
 
 ![png 01](https://i.imgur.com/LTKtaF3.png)
