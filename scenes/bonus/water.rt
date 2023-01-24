@@ -1,0 +1,26 @@
+#	VIEW --------------------------------------------------------------------------------------------------------- #
+#	C		position(x,y,z)	direction(x,y,z)	fov
+
+#	LIGHTS ------------------------------------------------------------------------------------------------------- #
+#	A											intensity											color(R,G,B)
+#	L		position(x,y,z)	intensity(0.0-1.0)														color(R,G,B)
+
+#	OBJECTS ------------------------------------------------------------------------------------------------------ #
+#	pl		position(x,y,z)	normal(x,y,z)		specular	reflection								color(R,G,B)
+#	sp		position(x,y,z)						diameter	specular	reflection					color(R,G,B)
+#	cy		position(x,y,z)	direction(x,y,z)	diameter	height		specular	reflection		color(R,G,B)
+
+#	SCENE -------------------------------------------------------------------------------------------------------- #
+
+#	TYPE	POSITION		DIRECTION			PROP1		PROP2		PROP3		PROP4			COLOR
+	C		0,0,-5			0,0,1				90
+
+	A											0.2													255,255,255
+	L		0,10,0								0.8													255,255,255
+
+	sp		0,-1,0								2.5			0			0.15						255,0,0
+	sp		2,1,0								1.5			0			0.15						255,255,255
+	sp		-2,1,0								1.5			0			0.15						255,255,255
+
+	cy		1,0,0			1,1,0				.75			2			0			0.15			255,255,255
+	cy		-1,0,0			-1,1,0				.75			2			0			0.15			255,255,255

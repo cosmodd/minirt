@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:17:48 by pforesti          #+#    #+#             */
-/*   Updated: 2022/11/02 16:38:19 by mrattez          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:58:10 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int	key_hook(int keycode, t_engine *engine)
 	}
 	if (keycode == KEY_I || keycode == KEY_K)
 		rotate_up(engine, (keycode == KEY_I) * 2 - 1);
+	if (keycode == KEY_T)
+		engine->auto_cam = !engine->auto_cam;
 	draw(engine);
 	return (0);
 }

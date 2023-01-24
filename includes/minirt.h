@@ -6,7 +6,7 @@
 /*   By: mrattez <mrattez@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:30:22 by mrattez           #+#    #+#             */
-/*   Updated: 2022/11/04 10:55:59 by mrattez          ###   ########.fr       */
+/*   Updated: 2023/01/24 10:57:22 by mrattez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define FOV			120
 # define THRESHOLD		1e-6
 # define VOID_COLOR		0x87ceeb
-# define REC_LIMIT		0	
+# define REC_LIMIT		0
 
 typedef struct s_engine
 {
@@ -51,6 +51,7 @@ typedef struct s_engine
 	double	vw;
 	double	vh;
 	double	vp_dist;
+	bool	auto_cam;
 }	t_engine;
 
 void	draw(t_engine *engine);
